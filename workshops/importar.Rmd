@@ -3,9 +3,9 @@ title: "Importação de dados"
 author: "P4H"
 output: html_document
 ---
-<link rel="stylesheet" href="/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/imgs/css/style.css">
+<link rel="stylesheet" href="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/css/style.css">
 
-<img src="/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/imgs/w1_02.png" class="livroR">
+<img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_02.png" class="livroR">
 
 O que veremos hoje:
 
@@ -25,7 +25,7 @@ O que veremos hoje:
 
 ## Ciclo de Ciência de Dados
 
-<img src="/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/imgs/w1_01.png" class="cienciadedados">
+<img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_01.png" class="cienciadedados">
 
 Assim como este é o nosso primeiro workshop, o primeiro passo na área de análise de dados é importar as informações nas quais você irá trabalhar, seja para um hobby, estágio ou iniciação cinetífica. Porém, existem diversas formas de importar dados e diversos dados que conseguimos importar, como por exemplo, podemos importar dados a partir de links, arquivos, com estruturas diversas e etc.
 
@@ -49,7 +49,7 @@ Acontece que até mesmo as tabelas podem vir em diversos formatos, como por exem
 
 Alguns exemplos de pacotes são os seguintes:
 
-<img src="/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/imgs/w1_12.png" class="pacotes">
+<img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_12.png" class="pacotes">
 
 Para instalar um pacote no R, utilizamos uma função chamada `install.packages()`. Após instalar o pacote de interesse, você deve habilitá-lo no seu ambiente do R com a função `library()`. Vamos ao código!
 
