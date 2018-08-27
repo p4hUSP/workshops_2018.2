@@ -1,0 +1,97 @@
+---
+title: "Importação de dados"
+author: "P4H"
+output: html_document
+---
+<link rel="stylesheet" href="/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/imgs/css/style.css">
+
+<img src="/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/imgs/w1_02.png" class="livroR">
+
+O que veremos hoje:
+
+- [Ciclo da Ciência de Dados.](#ciencia)
+
+- [Eu vejo dados em todos os lugares!](#dados)
+  
+- [Como abrir arquivos TXT, CSV e Arquivos Delimitados?](#importar1)
+  
+- [Como abrir dados do Excel, SPSS e Stata?](#importar2)
+  
+- [Importar dados utilizando Webscraping.](#webscraping)
+  
+- [Salvando arquivos.](#salvar)
+  
+<a id='ciencia'></a>  
+
+## Ciclo de Ciência de Dados
+
+<img src="/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/imgs/w1_01.png" class="cienciadedados">
+
+Assim como este é o nosso primeiro workshop, o primeiro passo na área de análise de dados é importar as informações nas quais você irá trabalhar, seja para um hobby, estágio ou iniciação cinetífica. Porém, existem diversas formas de importar dados e diversos dados que conseguimos importar, como por exemplo, podemos importar dados a partir de links, arquivos, com estruturas diversas e etc.
+
+Esta parte da importação de dados, é o primeiro passo do _Ciclo de Ciência de Dados_ descrito no livro "R for Data Science". Depois de trazer estes arquivos para dentro do ambiente do RStudio, devemos arrumá-los, isto é, verificar suas qualidades. Este procedimento é chamado de __Data Wrangling__ (será tema do próximo workshop, fiquem ligados!) e é uma parte essencial, uma vez que as nossas perguntas muitas vezes são respondidas depois de manipularmos as bases de dados.
+
+Mas antes de avançarmos, o que são dados?
+
+<a id='dados'></a>
+
+## Eu vejo dados em todos os lugares!
+
+<iframe src="https://giphy.com/embed/DvtsYOKrqPZg4" frameBorder="0" class="giphyembed" allowFullScreen></iframe>
+
+O que são dados? Essa é uma pergunta bem dificíl de responder e talvez traga um discussão muito maior do que podemos imaginar. Para esse workshop, uma respota no [Quora](https://www.quora.com/What-is-data-1) para a mesma pergunta basta:
+
+> Data is an abstraction of reality. Raw data is an observation, that  captures some elements of reality. Data can then be aggregated and analysed in a variety of ways.
+
+Esses dados, quando coletados podem vir de diversas formas, porém se queremos analisá-los no R, ou outros softwares, teremos que transformar estas informações em tabelas.
+
+Acontece que até mesmo as tabelas podem vir em diversos formatos, como por exemplo, `.txt`, `.sav`, `.csv` e etc; Como podemos importar estes tipos de arquivos no R? Para nossa felicidade, o R fornece algumas formas (que chamaremos de funções) para resolver os nossos problemas. Normalmente estas funções estão relacionadas com o que chamamos de pacotes, que nada mais são que um conjunto de ferramentas que possuem alguma ação, como por exemplo, "abrir arquivo csv", "filtar observação do banco de dados" e assim por diante.
+
+Alguns exemplos de pacotes são os seguintes:
+
+<img src="/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/imgs/w1_12.png" class="pacotes">
+
+Para instalar um pacote no R, utilizamos uma função chamada `install.packages()`. Após instalar o pacote de interesse, você deve habilitá-lo no seu ambiente do R com a função `library()`. Vamos ao código!
+
+```{r warning=FALSE, message=FALSE}
+# Instalando o pacote beepr (repare que ele deve estar entre "")
+install.packages("cowsay")
+# Habilitando o pacote
+library("cowsay")
+# Utilizando o pacote
+say(what = "Vamos importar dados!", by = "random")
+```
+
+Toda função tem o que chamamos de parâmetros, que são valores passados para trazer resultados especificos. No exemplo acima, a função `say` pede para escrevermos qual é o parametro "what" e o by. De forma intuitiva a função `say` só funcionará se nós dissermos o que falar ("what") e quem deve falar ("by").
+
+Agora é a sua vez! Pessa para o mestre Yoda falar "may the force be with you". **Dica**: Escreva o nome do Yoda em minusculo e não esqueça das aspas.
+
+```{r eval=FALSE}
+say(what = "", by = "")
+```
+
+Conseguiu entender? Ao longo do tutorial iremos utilizar mais funções para fixar o conteúdo!
+
+<a id='importar1'></a>
+
+## Como abrir arquivos TXT, CSV e Arquivos Delimitados?
+
+https://pt.wikipedia.org/wiki/%C3%8Dndice_de_Desenvolvimento_Humano
+
+https://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_do_Brasil_por_IDH
+
+https://pt.wikipedia.org/wiki/Lista_de_unidades_federativas_do_Brasil_por_IDH
+
+```{r}
+library(rvest)
+
+u <- "https://pt.wikipedia.org/wiki/Lista_de_unidades_federativas_do_Brasil_por_IDH"
+
+node <- read_html(u)
+
+node <- html_nodes(node, xpath = '//table[1]')
+
+html_table(node, fill = T)
+```
+
+
