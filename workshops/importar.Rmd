@@ -42,7 +42,7 @@ Mas antes de avançarmos, o que são dados?
 
 ## Eu vejo dados em todos os lugares!
 
-<img src="/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/imgs/w1_14.jpg" class="giphyembed">
+<img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_14.jpg" class="giphyembed">
 
 O que são dados? Essa é uma pergunta bem dificíl de responder e talvez traga um discussão muito maior do que podemos imaginar. Para esse workshop, uma respota no [Quora](https://www.quora.com/What-is-data-1) para a mesma pergunta basta:
 
