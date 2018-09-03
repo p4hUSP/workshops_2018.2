@@ -3,11 +3,16 @@ title: "Importação de dados"
 author: "P4H"
 output: html_document
 ---
+
 <link rel="stylesheet" href="/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/imgs/css/style.css">
 
 <img src="/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/imgs/w1_02.png" class="livroR">
 
 O que veremos hoje:
+
+- [O que é programar? O que é um código de programação?](#intro)
+
+- [Por que R?](#pqR)
 
 - [Ciclo da Ciência de Dados.](#ciencia)
 
@@ -20,7 +25,7 @@ O que veremos hoje:
 - [Importar dados utilizando Webscraping.](#webscraping)
   
 - [Salvando arquivos.](#salvar)
-  
+
 <a id='ciencia'></a>  
 
 ## Ciclo de Ciência de Dados
@@ -37,7 +42,7 @@ Mas antes de avançarmos, o que são dados?
 
 ## Eu vejo dados em todos os lugares!
 
-<iframe src="https://giphy.com/embed/DvtsYOKrqPZg4" frameBorder="0" class="giphyembed" allowFullScreen></iframe>
+<img src="/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/imgs/w1_14.jpg" class="giphyembed">
 
 O que são dados? Essa é uma pergunta bem dificíl de responder e talvez traga um discussão muito maior do que podemos imaginar. Para esse workshop, uma respota no [Quora](https://www.quora.com/What-is-data-1) para a mesma pergunta basta:
 
@@ -53,7 +58,7 @@ Alguns exemplos de pacotes são os seguintes:
 
 Para instalar um pacote no R, utilizamos uma função chamada `install.packages()`. Após instalar o pacote de interesse, você deve habilitá-lo no seu ambiente do R com a função `library()`. Vamos ao código!
 
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE, eval = FALSE}
 # Instalando o pacote beepr (repare que ele deve estar entre "")
 install.packages("cowsay")
 # Habilitando o pacote
@@ -76,22 +81,110 @@ Conseguiu entender? Ao longo do tutorial iremos utilizar mais funções para fix
 
 ## Como abrir arquivos TXT, CSV e Arquivos Delimitados?
 
-https://pt.wikipedia.org/wiki/%C3%8Dndice_de_Desenvolvimento_Humano
+Neste workshop e nos próximos iremos utilizar um pacote chamado `tidyverse`. Segundo o [site do pacote](https://www.tidyverse.org/packages/), o `tidyverse`
 
-https://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_do_Brasil_por_IDH
+> is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.
 
-https://pt.wikipedia.org/wiki/Lista_de_unidades_federativas_do_Brasil_por_IDH
+Como ele é uma coleção de pacotes para ciência de dados, temos como utilizar funções que vão desde como importar um dado, até como fazer visualizações e muito mais!
 
-```{r}
-library(rvest)
+Dentro da área de importar dados, sobretudo, os tabulares, o `tidyverse` oferece a oportunidade de trabalharmos com os seguintes pacotes e suas funções:
 
-u <- "https://pt.wikipedia.org/wiki/Lista_de_unidades_federativas_do_Brasil_por_IDH"
+- `readr`: Para importar arquivos que possuem delimitadores (.csv e .txt)
 
-node <- read_html(u)
+- `readxl`: Para importar arquivos do Excel (.xls e .xlsx)
 
-node <- html_nodes(node, xpath = '//table[1]')
+- `haven`: Para importar dados de arquivos, como por exemplo, SPSS e Stata
 
-html_table(node, fill = T)
+Vamos lá!
+
+```{r eval = FALSE}
+library(tidyverse)
 ```
 
+```{r eval = FALSE}
+# CSV
+w1_01 <- read_csv("/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/data/w1_01.csv")
+View(w1_01)
+
+# Delimitados
+w1_02 <- read_delim("/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/data/w1_02.csv", delim = "@")
+View(w1_02)
+```
+
+<a id='importar2'></a>
+
+## Como abrir dados do Excel, SPSS e Stata?
+
+```{r eval = FALSE}
+# Excel
+w1_06 <- read_xlsx("/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/data/w1_06.xlsx")
+
+# STATA
+w1_04 <- read_dta("/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/data/w1_04.dta")
+
+# SPSS
+w1_05 <- read_sav("/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/data/w1_05.sav")
+```
+
+Pronto! É assim que se importam dados para o R, muito fácil, não? Vamos para um desafio maior!
+
+Uma das principais diferenças entre o Excel e o R (linguagens de programação em geral) é que o primeiro te mantem preso a uma lógica de como as coisas devem funcionar, enquanto o segundo te permite criar diversas soluções. Um exemplo disso, é o webScraping, que nada mais é que uma forma de extrair dados de sites utilizando códigos.
+
+<a id='webscraping'></a>
+
+## Importar dados utilizando Webscraping.
+
+Na maioria das vezes, para não dizer sempre, extraímos informações de arquivos HTML (Hypertext Markup Language). Antes de irmos para parte prática, vamos assistir um vídeo para entender melhor o que é esse tal [HTML](https://www.youtube.com/watch?v=UjCbXQ8Coic).
+
+Calma, nós já vamos para o R, vamos só dar uma olhada em um arquivo html. Abra o `exemplo.html` na pasta `data`.
+
+Para fazer WebScraping no R, precisamos habilitar uma bilioteca chamada `rvest`!
+
+```{r eval = FALSE}
+library(rvest)
+```
+
+```{r eval = FALSE}
+u0 <- "https://www.nexojornal.com.br/tags/Temas/Política"
+
+node <- read_html(u0)
+
+# Titulo das noticias
+titulo <- html_nodes(node, xpath = '//div[@class="col-sm-3 col-sm-3"]//h3[@class="title "]')
+titulo <- html_text(titulo)
+
+# Classe da materia
+classe <- html_nodes(node, xpath = '//div[@class="col-sm-3 col-sm-3"]//div[@class="kicker "]/a')
+classe <- html_text(classe)
+
+# Autor 
+autor <- html_nodes(node, xpath = '//div[@class="meta"]/p[@class="author "]')
+autor <- html_text(autor)
+
+# Perceberam que o tamanho do vetor é menor??
+## Talvez tenhamos que mudar de tag
+autor <- html_nodes(node, xpath = '//div[@class="meta"]|span[@class="author "]')
+autor <- html_text(autor)
+
+# Links
+link <- html_nodes(node, xpath = '//div[@class="img-container picture"]/a')
+link <- html_attr(link, 'href')
+
+# Colocando tudo em ma planilha
+nexo <- data.frame(titulo = titulo, classe = classe, autor = autor, link = link)
+```
+
+### Sua vez!
+
+Tente fazer o mesmo com a área de Economia do Nexo!
+
+<a id='salvar'></a>  
+
+## Salvando arquivos.
+
+Para salvar uma tabela no R, basta que utilizamos o prefixo `write_`, seguito do tipo de arquivo que queremos salvar:
+
+```{r eval = FALSE}
+write_csv(nexo, "tabela_nexo.csv")
+```
 
