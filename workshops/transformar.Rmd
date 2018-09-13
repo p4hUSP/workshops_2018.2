@@ -1,0 +1,34 @@
+---
+title: "Transformando Dados"
+author: "P4H"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introdução
+
+No nosso último encontro, trabalhamos um pouco com importação de dados e _webscraping_. Uma vez que essa etapa é realizada, como proceder com o nosso banco de dados? Como transformá-lo para algo mais significado para nós? Hoje iremos entender como funciona a transformação de dados, de acordo com o _tidyverse approach_.
+
+## mutate
+
+Dentre os pacotes disponibilizados no _tidyverse_, o responsável por esse processo é o `dplyr`. Ele é carregado automaticamente com a função `library(tidyverse)`.
+
+```{r, eval = FALSE}
+library(tidyverse)
+```
+
+Você lembra do que é composto um _data frame_? Caso tenha esquecido, não tem problema. Algumas coisas básicas do R podem ser difíceis no começo. Um _data frame_ é composto por colunas (variáveis). Essas colunas, no contexto do R, são _vetores_. Nesse sentido, modificar uma variável de um banco de dados é a mesma coisa que modificar um vetor.
+
+Como fazemos isso? O `dplyr` oferece uma função chamada `mutate`, que nos permite acessar alterar essas colunas ou criar novas.
+
+```{r}
+banco %>% 
+  mutate(COLUNA_VARIAVEL = VALOR_QUE_DESEJAMOS_NA_COLUNA)
+```
+
+Podemos atribuir para uma coluna, valores "arbitrários"
+
+##
