@@ -222,14 +222,10 @@ classe <- html_text(classe)
 autor <- html_nodes(node, xpath = '//div[@class="meta"]/p[@class="author "]')
 autor <- html_text(autor)
 
-# Perceberam que o tamanho do vetor é menor??
+# Perceberam que o tamanho do vetor é menor?
 ## Talvez tenhamos que mudar de tag
 autor <- html_nodes(node, xpath = '//div[@class="meta"]|span[@class="author "]')
 autor <- html_text(autor)
-
-# Links
-link <- html_nodes(node, xpath = '//div[@class="img-container picture"]/a')
-link <- html_attr(link, 'href')
 ```
 
 Por fim, só precisamos organizar os dados em um data frame (Tabela)
