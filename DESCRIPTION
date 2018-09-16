@@ -5,13 +5,12 @@ Version: 0.0.1
 Imports: 
   blogdown,
   tidyverse,
-   plotly,
-   stringr,
-   ezknitr,
-   webshot,
-   ggthemes,
-   ggmap,
-   rgdal,
-   sp,
-   sf,
-   mapview
+  plotly,
+  stringr,
+  ezknitr,
+  ggthemes,
+  ggmap,
+  rgdal,
+  sp,
+  sf,
+  mapview
