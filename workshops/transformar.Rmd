@@ -16,20 +16,57 @@ library(knitr)
 
 No nosso último encontro, trabalhamos um pouco com importação de dados e _webscraping_. Uma vez que essa etapa é realizada, como proceder com o nosso banco de dados? Como transformá-lo para algo mais significado para nós? Hoje iremos entender como funciona a estruturação e a transformação de dados, de acordo com o _tidyverse approach_.
 
-<img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_01.png" class="cienciadedados" class="center" class="center">
+```{r, echo = FALSE, fig.align='center', fig.height=5.0, fig.width=7.0}
+knitr::include_graphics('../imgs/w1_01.png')
+```
 
 ## Estruturação
 
 > tidy datasets are all alike but every messy dataset is messy in its own way (Hadley, 2014)
 
-Estruturar um banco é uma tarefa __essencial__ antes de realizar qualquer operação. Uma banco desestruturado nos impede de transformar, visualizar e até modelar as nossas variáveis!
+Estruturar um banco é uma tarefa __essencial__ antes de realizar qualquer operação. Uma banco desestruturado nos impede de transformar, visualizar e até modelar as nossas variáveis! Qual padrão iremos utilizar? Trabalharemos com bancos em que as linhas contêm observações; as colunas, variáveis e as células, valores.
 
 ```{r, echo = FALSE, fig.align='center', fig.height=5.0, fig.width=7.0}
 knitr::include_graphics("../imgs/tidy-1.png")
 ```
 
+## Como deixar os dados tidy com o `tidyr`.
 
-## Transformação
+O pacote `tidyr` possui funções que irão nos auxiliar durante o processo de _estruturação_ de um banco de dados. Ela é carregada com o comando `library(tidyverse)`.
+
+Neste workshop, iremos trabalhar com o banco de dados sobre cursos _online_ oferecidos pelo MIT e pela Harvard.
+
+```{r}
+# Carrega o pacote tidyverse
+library(tidyverse)
+
+# Lê o banco de dado
+banco <- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar o caminho
+```
+
+Após carregar o nosso banco de dados, podemos dar uma "olhada rápida" por ele com a função `glimpse`.
+
+```{r}
+glimpse(banco)
+```
+
+### `gather`
+
+Repare que as últimas quatro colunas não são exatamente variáveis. `2012`, `2013`, `2014`, `2015` e `2016` na verdade são valores de uma outra variável, ao mesmo tempo que as células correspondentes a essas variáveis dizem respeito também a outra variável. Você saberia dizer tendo em vista apenas os valores quais são essas __duas__ variáveis?
+
+```{r}
+banco <- gather(banco, c("2012", "2013", "2014", "2015", "2016"), key = "year", value = "institutions")
+```
+
+Se você está familiarizado com a notação _wide_ e _long_, o que acabamos de fazer foi transformar um banco com características _wide_ em um _long_. É possível ir além e afirmar que o formato _tidy data_ sempre é um banco _long_.
+
+## `spread`, `separate` e `unite`
+
+## Os principais verbos do dplyr.
+
+### filter
+
+### mutate
 
 Por que transformar os nossos dados? Após importar um banco para o R, antes de realizar qualquer análise, precisamos (1) garantir que as nossas variáveis estão limpas, ou seja, que todos os valores estão condizentes com o padrão esperado (2) e, às vezes, precisamos _recodificá-las_ para algo com mais significado para nós.
 
