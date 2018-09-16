@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="pt-br">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Importação de dados - Workshop P4H</title>
+    <meta name="generator" content="Hugo 0.22" />
+
+    
+    <meta name="description" content="Material para Workshops da P4H">
+    
+    <link rel="canonical" href="../importar/">
+    
+    <meta name="author" content="P4H">
+    
+
+    <meta property="og:url" content="/importar/">
+    <meta property="og:title" content="Workshop P4H">
+    <meta property="og:image" content="/logo_r4sc.jpg">
+    <meta name="apple-mobile-web-app-title" content="Workshop P4H">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../stylesheets/icons.css">
+    <link rel="stylesheet" href="../stylesheets/application.css">
+    <link rel="stylesheet" href="../stylesheets/temporary.css">
+    <link rel="stylesheet" href="../stylesheets/palettes.css">
+    <link rel="stylesheet" href="../stylesheets/prism.css">
+
+    <link rel="stylesheet" href="../stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="../javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Importação de dados
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/p4hUSP" title="@p4hUSP on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="../" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="../logo_r4sc.jpg">
+        </div>
+      
+      <div class="name">
+        <strong>Workshop P4H </strong>
+        
+          <br>
+          p4hUSP/workshops_2018.2
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/p4hUSP/workshops_2018.2/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/p4hUSP/workshops_2018.2/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Importar" href="../importar/">
+	
+	Importar
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Manipular" href="../manipular/">
+	
+	Manipular
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">Contatos</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/p4hUSP" target="_blank" title="@p4hUSP no GitHub">
+              @p4hUSP no GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://facebook.com/p4hUSP" target="_blank" title="@p4hUSP on Facebook">
+              @p4hUSP no Facebook
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://p4husp.herokuapp.com" target="_blank" title="@p4hUSP on Slack">
+              @p4hUSP on Slack
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:p4husp@gmail.com" title="Nosso E-Email p4husp@gmail.com">
+              Envie um E-Mail
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Importação de dados </h1>
+
+			
+
+<p><link rel="stylesheet" href="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/css/style.css"></p>
+
+<p>O que veremos hoje:</p>
+
+<ul>
+<li><p><a href="#intro">O que é programar? O que é um código de programação?</a></p></li>
+
+<li><p><a href="#pqR">Por que R?</a></p></li>
+
+<li><p><a href="#ciencia">Ciclo da Ciência de Dados.</a></p></li>
+
+<li><p><a href="#dados">Eu vejo dados em todos os lugares!</a></p></li>
+
+<li><p><a href="#importar1">Como abrir arquivos TXT, CSV e Arquivos Delimitados?</a></p></li>
+
+<li><p><a href="#importar2">Como abrir dados do Excel, SPSS e Stata?</a></p></li>
+
+<li><p><a href="#webscraping">Importar dados utilizando Webscraping.</a></p></li>
+
+<li><p><a href="#salvar">Salvando arquivos.</a></p></li>
+</ul>
+
+<p><a id='ciencia'></a></p>
+
+<h2 id="ciclo-de-ciência-de-dados">Ciclo de Ciência de Dados</h2>
+
+<p><img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_01.png" class="cienciadedados" class="center" class="center"></p>
+
+<p>Assim como este é o nosso primeiro workshop, o primeiro passo na área de análise de dados é importar as informações nas quais você irá trabalhar, seja para um freela, estágio ou iniciação científica. Porém, existem diversas formas de importar dados e diversos dados que conseguimos importar, como por exemplo, podemos importar dados a partir de links, arquivos, com estruturas diversas e etc.</p>
+
+<p>Esta parte da importação de dados, é o primeiro passo do <em>Ciclo de Ciência de Dados</em> descrito no livro &ldquo;R for Data Science&rdquo;. Depois de trazer estes arquivos para dentro do ambiente do RStudio, devemos arrumá-los, isto é, verificar se suas estruras estão boas para serem trabalhadas. Este procedimento é chamado de <strong>Data Wrangling</strong> (será tema do próximo workshop, fiquem ligados!) e é uma parte essencial, uma vez que as nossas perguntas muitas vezes são respondidas depois de manipularmos as bases de dados.</p>
+
+<p>Mas antes de avançarmos, o que são dados?</p>
+
+<p><a id='dados'></a></p>
+
+<h2 id="eu-vejo-dados-em-todos-os-lugares">Eu vejo dados em todos os lugares!</h2>
+
+<p><img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_14.jpg" class="giphyembed" class="center"></p>
+
+<p>O que são dados? Essa é uma pergunta bem dificíl de responder e talvez traga um discussão muito maior do que podemos imaginar. Para esse workshop, uma respota no <a href="https://www.quora.com/What-is-data-1">Quora</a> para a mesma pergunta basta:</p>
+
+<blockquote>
+<p>Data is an abstraction of reality. Raw data is an observation, that  captures some elements of reality. Data can then be aggregated and analysed in a variety of ways.</p>
+</blockquote>
+
+<p>Esses dados, quando coletados podem vir de diversas formas, porém se queremos analisá-los no R, ou outros softwares, na maioria das vezes teremos que transformar estas informações em tabelas.</p>
+
+<p>Acontece que até mesmo as tabelas podem vir em diversos formatos, como por exemplo, <code>.txt</code>, <code>.sav</code>, <code>.csv</code> e etc; Como podemos importar estes tipos de arquivos no R? Para nossa felicidade, o R fornece algumas formas (que chamaremos de funções) para resolver os nossos problemas. Normalmente estas funções estão relacionadas com o que chamamos de pacotes, que nada mais são que um conjunto de ferramentas que possuem alguma ação, como por exemplo, &ldquo;abrir arquivo csv&rdquo;, &ldquo;filtar observação do banco de dados&rdquo; e assim por diante.</p>
+
+<p>Alguns exemplos de pacotes são os seguintes:</p>
+
+<p><img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_12.png" class="pacotes" class="center"></p>
+
+<p>Para instalar um pacote no R, utilizamos uma função chamada <code>install.packages()</code>. Após instalar o pacote de interesse, você deve habilitá-lo no seu ambiente do R com a função <code>library()</code>. Vamos ao código!</p>
+
+<pre><code class="language-r"># Instalando o pacote beepr (repare que ele deve estar entre &quot;&quot;)
+install.packages(&quot;cowsay&quot;)
+# Habilitando o pacote
+library(&quot;cowsay&quot;)
+# Utilizando o pacote
+say(what = &quot;Vamos importar dados!&quot;, by = &quot;random&quot;)
+</code></pre>
+
+<p>Toda função tem o que chamamos de parâmetros, que são valores passados para trazer resultados especificos. No exemplo acima, a função <code>say</code> pede para escrevermos qual é o parametro &ldquo;what&rdquo; e o by. De forma intuitiva a função <code>say</code> só funcionará se nós dissermos o que falar (&ldquo;what&rdquo;) e quem deve falar (&ldquo;by&rdquo;).</p>
+
+<p>Agora é a sua vez! Peça para o mestre Yoda falar &ldquo;may the force be with you&rdquo;. <strong>Dica</strong>: Escreva o nome do Yoda em minusculo e não esqueça das aspas.</p>
+
+<pre><code class="language-r">say(what = &quot;&quot;, by = &quot;&quot;)
+</code></pre>
+
+<p>Conseguiu entender? Ao longo do tutorial iremos utilizar mais funções para fixar o conteúdo!</p>
+
+<p><a id='importar1'></a></p>
+
+<h2 id="como-abrir-arquivos-txt-csv-e-arquivos-delimitados">Como abrir arquivos TXT, CSV e Arquivos Delimitados?</h2>
+
+<p>Neste workshop e nos próximos iremos utilizar um pacote chamado <code>tidyverse</code>. Segundo o <a href="https://www.tidyverse.org/packages/">site do pacote</a>, o <code>tidyverse</code></p>
+
+<blockquote>
+<p>is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.</p>
+</blockquote>
+
+<p>Como ele é uma coleção de pacotes para ciência de dados, temos como utilizar funções que vão desde como importar um dado, até como fazer visualizações e muito mais!</p>
+
+<p>Dentro da área de importar dados, sobretudo, os tabulares, o <code>tidyverse</code> oferece a oportunidade de trabalharmos com os seguintes pacotes e suas funções:</p>
+
+<ul>
+<li><p><code>readr</code>: Para importar arquivos que possuem delimitadores (.csv e .txt)</p></li>
+
+<li><p><code>readxl</code>: Para importar arquivos do Excel (.xls e .xlsx)</p></li>
+
+<li><p><code>haven</code>: Para importar dados de arquivos, como por exemplo, SPSS e Stata</p></li>
+</ul>
+
+<p>Vamos lá!</p>
+
+<pre><code class="language-r">library(tidyverse)
+</code></pre>
+
+<pre><code class="language-r"># CSV
+w1_01 &lt;- read_csv(&quot;/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/data/w1_01.csv&quot;)
+
+# Delimitados
+w1_02 &lt;- read_delim(&quot;/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/data/w1_02.csv&quot;, delim = &quot;@&quot;)
+</code></pre>
+
+<p><a id='importar2'></a></p>
+
+<h2 id="como-abrir-dados-do-excel-spss-e-stata">Como abrir dados do Excel, SPSS e Stata?</h2>
+
+<pre><code class="language-r"># Excel
+w1_06 &lt;- read_xlsx(&quot;/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/data/w1_06.xlsx&quot;)
+
+# STATA
+w1_04 &lt;- read_dta(&quot;/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/data/w1_04.dta&quot;)
+
+# SPSS
+w1_05 &lt;- read_sav(&quot;/home/nathan/Documentos/Trabalho/P4H/workshops_2018.2/data/w1_05.sav&quot;)
+</code></pre>
+
+<p>Pronto! É assim que se importam dados para o R, muito fácil, não? Vamos para um desafio maior!</p>
+
+<p>Uma das principais diferenças entre o Excel e o R (linguagens de programação em geral) é que o primeiro te mantem preso a uma lógica de como as coisas devem funcionar, enquanto o segundo te permite criar diversas soluções. Um exemplo disso, é o webScraping, que nada mais é que uma forma de extrair dados de sites utilizando códigos.</p>
+
+<p><a id='webscraping'></a></p>
+
+<h2 id="importar-dados-utilizando-webscraping">Importar dados utilizando Webscraping.</h2>
+
+<p>Partindo também para um definição mais &ldquo;formal&rdquo; da técnica,</p>
+
+<blockquote>
+<p>&ldquo;Web Scraping [&hellip;], can be defined as &lsquo;the construction of an agent to download, parse, and organize data from the web in an automated manner.&rsquo; Or, in other words: instead of a human end user clicking away in a web browser and copy-pasting interesting parts into, say, a spreadsheet, web scraping offloads this task to a computer program that can execute it much faster, and more correctly, than a human can.&rdquo; (Practical Web Scraping for Data Science. BROUCKE &amp; BAESENS, 2018).</p>
+</blockquote>
+
+<p>O objetivo deste workshop é que possamos aprender como: fazer o download de páginas web, montar seus parsers e organizar os dados, que neste caso terão como resultado final uma tabela. Especificando um pouco mais nosso aprendizado, como maior parte das páginas web são construídas utilizando uma linguagem de marcação chamada HTML (Hypertext Markup Language), aprenderemos como extrair informações deste tipo de arquivo.</p>
+
+<p>Vamos ver o que é esse tal arquivo HTML! Abra o <code>exemplo.html</code> na pasta <code>data</code> e com ele aberto clique com o botão direito em &ldquo;Inspect&rdquo;. Ao clicar conseguimos ver o HTML dá página. Legal né? É desse tipo de arquivo que vamos extrair as informações que queremos.</p>
+
+<p>Vamos entender um pouco mais da estrutura do <a href="https://www.youtube.com/watch?v=UjCbXQ8Coic">HTML</a>!</p>
+
+<p>Ok! Mas como eu faço para extrair essas informações no R? Para fazer isso precisamos habilitar um pacote chamado <code>rvest</code>!</p>
+
+<pre><code class="language-r">library(rvest)
+</code></pre>
+
+<p>O primeira passo é definir a url que iremos baixar/ler. Que tal fazer um scraper da área de política do <a href="https://www.nexojornal.com.br/tags/Temas/Pol%C3%ADtica">Jornal Nexo</a>?</p>
+
+<pre><code class="language-r">u0 &lt;- &quot;https://www.nexojornal.com.br/tags/Temas/Política&quot;
+</code></pre>
+
+<p>Depois disso vamos ler o HTML da url</p>
+
+<pre><code class="language-r">node &lt;- read_html(u0)
+</code></pre>
+
+<p>Como será que é esse arquivo? E que classe ele percente?</p>
+
+<pre><code class="language-r">node
+</code></pre>
+
+<pre><code class="language-r">class(node)
+</code></pre>
+
+<p>Ops! não vimos nada sobre classes aqui, isso é um problema? Não! Não precisa se preocupar, mas é importante entende a que classe pertence o objeto <code>node</code>. Ele pertence a duas classes que possuem em comum o termo &ldquo;xml&hellip;&rdquo;, mas o que é isso? Nós não estamos interessados no HTML?</p>
+
+<p>Acontece que HTML pode ser considerado uma implementação do XML, eles poderiam ser considerados primos! Se você sabe um, você sabe o outro.</p>
+
+<p>Vejamos este exemplo <a href="https://pt.wikipedia.org/wiki/XML">aqui</a>!</p>
+
+<p>Interessante, não? Mas como coletamos as informações? A resposta é simples, com <code>Xpath</code>.</p>
+
+<blockquote>
+<p>&ldquo;XPath is a language used for locating nodes in XML documents.&rdquo; (Practical Web Scraping for Data Science. BROUCKE &amp; BAESENS, 2018).</p>
+</blockquote>
+
+<p>Basicamente, o <code>Xpath</code> é uma forma de informar onde uma determinada tag (ou um conjunto delas) está. Ficara mais claro quado colocarmos a mão na massa, mas por enquanto vamos nos familizarizar com algumas expressões do Xpath:</p>
+
+<ul>
+<li><p>&rdquo;/&rdquo; selects from the root node;</p></li>
+
+<li><p>&rdquo;//&rdquo; can be used to skip multiple levels of nodes and search through all descendants to perform a selection;</p></li>
+
+<li><p>&rdquo;@&rdquo; selects attributes.</p></li>
+</ul>
+
+<p>Por incrível que pareça, conseguimos fazer muitas com essas expressões (é sério). Vamos ver alguns exemplos:</p>
+
+<pre><code class="language-r">html_nodes(node, xpath = '/html/body/div')
+</code></pre>
+
+<pre><code class="language-r">html_nodes(node, xpath = '//div')
+</code></pre>
+
+<pre><code class="language-r">html_nodes(node, xpath = '/html/body//div')
+</code></pre>
+
+<pre><code class="language-r">html_nodes(node, xpath = '//div[@class=&quot;meta&quot;]')
+</code></pre>
+
+<p>Podemos finalmente continuar o nosso WebScraping. Vamos escrever os &ldquo;parsers&rdquo;, que basicamente são os códigos daquilo que queremos extrair do HTML. No caso do nexo nós queremos as seguintes informações:</p>
+
+<p><img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_15.png" class="center"></p>
+
+<pre><code class="language-r"># Titulo das noticias
+titulo &lt;- html_nodes(node, xpath = '//div[@class=&quot;col-sm-3 col-sm-3&quot;]//h3[@class=&quot;title &quot;]')
+titulo &lt;- html_text(titulo)
+
+# Classe da materia
+classe &lt;- html_nodes(node, xpath = '//div[@class=&quot;col-sm-3 col-sm-3&quot;]//div[@class=&quot;kicker &quot;]/a')
+classe &lt;- html_text(classe)
+
+# Autor 
+autor &lt;- html_nodes(node, xpath = '//div[@class=&quot;meta&quot;]/p[@class=&quot;author &quot;]')
+autor &lt;- html_text(autor)
+
+# Perceberam que o tamanho do vetor é menor?
+## Talvez tenhamos que mudar de tag
+autor &lt;- html_nodes(node, xpath = '//div[@class=&quot;meta&quot;]|span[@class=&quot;author &quot;]')
+autor &lt;- html_text(autor)
+</code></pre>
+
+<p>Por fim, só precisamos organizar os dados em um data frame (Tabela)</p>
+
+<pre><code class="language-r"># Colocando tudo em ma planilha
+nexo &lt;- data.frame(titulo = titulo, classe = classe, autor = autor, link = link)
+</code></pre>
+
+<p>Legal, não? Construímos a nosso próprio banco de dados!</p>
+
+<h3 id="sua-vez">Sua vez!</h3>
+
+<p>Tente fazer o mesmo com a área de <a href="https://www.nexojornal.com.br/tags/Temas/Economia">Economia do Nexo</a>!</p>
+
+<pre><code class="language-r">u0 &lt;- &quot;https://www.nexojornal.com.br/tags/Temas/Economia&quot;
+</code></pre>
+
+<p><a id='salvar'></a></p>
+
+<h2 id="salvando-arquivos">Salvando arquivos.</h2>
+
+<p>Depois que nós importamos os dados e darmos continuidado ao ciclo da Ciência de Dados, podemos salvá-los para, por exemplo, não precisar refazer todas mudanças já feitas. E é muito simples fazer isso, basta que utilizamos o prefixo <code>write_</code>, seguido da tabela que queremos salvar e o nome do arquivo que ela será salva (obs: não pode esquecer da extensão do arquivo, por exemplo &ldquo;.csv&rdquo;):</p>
+
+<pre><code class="language-r">write_csv(nexo, &quot;tabela_nexo.csv&quot;)
+</code></pre>
+
+<p>É isso! No próximo workshop veremos como manipular as bases de dados afim de ter uma informação consistente para qualquer análise, o que vai nos permitir também a chegar no terceiro workshop e produzir gráficos como este:</p>
+
+<p><img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/graficos/w1_08.png" class="center"></p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2018 Released under the MIT license &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="../manipulacao/" title="Manipulação de Dados (Data Wragling)">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Manipulação de Dados (Data Wragling)
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '\/';
+      var repo_id  = 'p4hUSP\/workshops_2018.2';
+    
+    </script>
+
+    <script src="../javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){
+          i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||
+          []).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;
+          m.parentNode.insertBefore(a,m)
+        })(window, document,
+          'script', '//www.google-analytics.com/analytics.js', 'ga');
+         
+        ga('create', 'UA-119683862-1', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+         
+        var buttons = document.querySelectorAll('a');
+        Array.prototype.map.call(buttons, function(item) {
+          if (item.host != document.location.host) {
+            item.addEventListener('click', function() {
+              var action = item.getAttribute('data-action') || 'follow';
+              ga('send', 'event', 'outbound', action, item.href);
+            });
+          }
+        });
+         
+        var query = document.querySelector('.query');
+        query.addEventListener('blur', function() {
+          if (this.value) {
+            var path = document.location.pathname;
+            ga('send', 'pageview', path + '?q=' + this.value);
+          }
+        });
+      </script>
+    
+
+    <script src="../javascripts/prism.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

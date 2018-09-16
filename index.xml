@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Workshop P4H</title>
+    <link>/</link>
+    <description>Recent content on Workshop P4H</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <copyright>Released under the MIT license</copyright>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Importação de dados</title>
+      <link>/importar/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/importar/</guid>
+      <description>O que veremos hoje:
+ O que é programar? O que é um código de programação?
+ Por que R?
+ Ciclo da Ciência de Dados.
+ Eu vejo dados em todos os lugares!
+ Como abrir arquivos TXT, CSV e Arquivos Delimitados?
+ Como abrir dados do Excel, SPSS e Stata?
+ Importar dados utilizando Webscraping.
+ Salvando arquivos.
+  
+Ciclo de Ciência de Dados Assim como este é o nosso primeiro workshop, o primeiro passo na área de análise de dados é importar as informações nas quais você irá trabalhar, seja para um freela, estágio ou iniciação científica.</description>
+    </item>
+    
+    <item>
+      <title>Manipulação de Dados (Data Wragling)</title>
+      <link>/manipulacao/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/manipulacao/</guid>
+      <description>A base está na pasta data/w2 e chama w2_01_use.csv; o dado original se encontra na mesma pasta com o nome w2_01.csv O que veremos hoje:
+ O pacote tidyverse.
+ O que é tidy data?
+ Como deixar os dados tidy com o tidyr.
+ Os principais verbos do dplyr.
+ Extra: Juntar dados de diferentes fontes
+  O tidyverse SUGESTÃO: Falar para que serve e como utilizaremos neste workshop</description>
+    </item>
+    
+    <item>
+      <title>Transformando Dados</title>
+      <link>/manipular/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/manipular/</guid>
+      <description>O que veremos hoje:
+ O pacote tidyverse.
+ O que é tidy data?
+ Como deixar os dados tidy com o tidyr.
+ Os principais verbos do dplyr.
+ Extra: Juntar dados de diferentes fontes
+  Introdução No nosso último encontro, trabalhamos um pouco com importação de dados e webscraping. Uma vez que essa etapa é realizada, como proceder com o nosso banco de dados? Como transformá-lo para algo mais significado para nós?</description>
+    </item>
+    
+    <item>
+      <title>Workshop 2018</title>
+      <link>/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/</guid>
+      <description>##</description>
+    </item>
+    
+  </channel>
+</rss>
