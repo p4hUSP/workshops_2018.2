@@ -6,7 +6,7 @@ metadataformat = "yaml"
 canonifyurls = true
 relativeurls = true
 # Enable Google Analytics by entering your tracking id
-googleAnalytics = "UA-119683862-1"
+googleAnalytics = "UA-125947516-1"
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 

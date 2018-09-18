@@ -1,0 +1,218 @@
+---
+title: "Transformando Dados"
+author: "P4H"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+library(tidyverse)
+library(knitr)
+```
+
+## Introdução
+
+No nosso último encontro, trabalhamos um pouco com importação de dados e _webscraping_. Uma vez que essa etapa é realizada, como proceder com o nosso banco de dados? Como transformá-lo para algo mais significado para nós? Hoje iremos entender como funciona a estruturação e a transformação de dados, de acordo com o _tidyverse approach_.
+
+```{r, echo = FALSE, fig.align='center', fig.height=5.0, fig.width=7.0}
+knitr::include_graphics('../imgs/w1_01.png')
+```
+
+## Estruturação
+
+> tidy datasets are all alike but every messy dataset is messy in its own way (Hadley, 2014)
+
+Estruturar um banco é uma tarefa __essencial__ antes de realizar qualquer operação. Uma banco desestruturado nos impede de transformar, visualizar e até modelar as nossas variáveis! Qual padrão iremos utilizar? Trabalharemos com bancos em que as linhas contêm observações; as colunas, variáveis e as células, valores.
+
+```{r, echo = FALSE, fig.align='center', fig.height=5.0, fig.width=7.0}
+knitr::include_graphics("../imgs/tidy-1.png")
+```
+
+## Como deixar os dados tidy com o `tidyr`.
+
+O pacote `tidyr` possui funções que irão nos auxiliar durante o processo de _estruturação_ de um banco de dados. Ela é carregada com o comando `library(tidyverse)`.
+
+Neste workshop, iremos trabalhar com o banco de dados sobre cursos _online_ oferecidos pelo MIT e pela Harvard.
+
+```{r}
+# Carrega o pacote tidyverse
+library(tidyverse)
+
+# Lê o banco de dado
+banco_1 <- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar o caminho
+```
+
+Após carregar o nosso banco de dados, podemos dar uma "olhada rápida" por ele com a função `glimpse`.
+
+```{r}
+glimpse(banco_1)
+```
+
+### `gather`
+
+Repare que as últimas quatro colunas não são exatamente variáveis. `2012`, `2013`, `2014`, `2015` e `2016` na verdade são valores de uma outra variável, ao mesmo tempo que as células correspondentes a essas variáveis dizem respeito também a outra variável. Você saberia dizer tendo em vista apenas os valores quais são essas __duas__ variáveis?
+
+```{r}
+banco_2 <- gather(banco_1, c("2012", "2013", "2014", "2015", "2016"), key = "year", value = "institutions")
+```
+
+Se você está familiarizado com a notação _wide_ e _long_, o que acabamos de fazer foi transformar um banco com características _wide_ em um _long_. É possível ir além e afirmar que o formato _tidy data_ sempre é um banco _long_.
+
+Uma outra maneira de entender o que aconteceu é pensar que as linhas foram _derretidas_ para formar novas variáveis.
+
+## Os principais verbos do dplyr.
+
+As funções do pacote `dplyr` podem 
+
+1. `filter`: filtra as linhas de um banco de dados de acordo com uma regra lógica.
+
+2. `mutate`: modifica ou cria colunas de acordo com valores fornecidos.
+
+3. `select`: seleciona ou exclui colunas de um banco de dados.
+
+4. `count`: conta os valores e uma variável.
+
+    + Especialmente útil para variáveis categóricas.
+    
+5. `group_by` e `summarise`: são funções normalmente utilizadas em conjunto. Elas permitem realizar operações de agregações com o banco de dados e, assim, alterar a unidade de análise. 
+
+### filter
+
+Vamos voltar ao nosso banco de cursos _online_. Após realizarmos uma operação a fim de tornar o nosso banco _long_, você reparou que o número de observações aumentou? Podemos verificar isso com a função `nrow()`.
+
+```{r}
+nrow(banco_1)
+
+nrow(banco_2)
+```
+
+De 290 observações, fomos para 1450! Em alguns casos, isso não seria um problema. Porém, neste em caso em específico, houve uma criação de vários valores NA (missing) para a coluna `institutions`. Isso ocorreu porque no fundo esse banco foi transformado previamente com objetivo de produzir um exemplo para este tutorial.
+
+Independentemente disso, temos que arrumar esse problema e excluir as linhas com valor NA. Como realizar isso? Antes precisamos trabalhar rapidamente com avaliações lógicas no R como também entender melhor qual a natureza desse valor de _missing_ no R, o `NA`.
+
+### Valores Booleanos e Avaliações Lógicas
+
+Valores booleanos são resultados de operações booleanas e podem ser definidos como __verdadeiros__ ou __falsos__. Por convenção, trabalhamos com os termos em inglês. Portanto, __TRUE__ ou __FALSE__.
+
+Por operações booleanas, podemos pensar em diferentes testes que tenham __necessariamente__ uma resposta ou verdadeira ou falsa. Por exemplo, 3 é maior do que 1? Verdadeiro! E 3 é menor do que 2? Falso! Vamos realizar essas duas operações no R.
+
+```{r}
+# 3 é maior do que 1?
+
+3 > 1
+```
+
+```{r}
+# 3 é maior do que 1?
+
+3 < 2
+```
+
+Existem, obviamente, outras operações. É possível também testar a igualdade entre dois valores com `==`.
+
+```{r}
+# 2 é igual a 2?
+
+2 == 2
+```
+
+Também podemos testar se dois valores são diferentes.
+
+```{r}
+#120 é diferente de 20?
+
+120 != 20
+```
+
+Outras variações utilizadas são o maior ou igual (`>=`) e o menor ou igual (`<=`). Além disso, também é possível realizar essas operações com textos.
+
+```{r}
+# "harvard" é igual a "MIT"?
+
+"harvard" == "MIT"
+```
+
+Não iremos introduzir essa ideia aqui, mas caso seja de interesse também podemos utilizar as noções de maior e menor para textos. Você teria um palpite de como um texto pode ser maior do que outro?
+
+Por fim, temos uma operação booleana no R para testar se um valor é _missing_. Normalmente, ao realizar a nossa coleta de dados, não conseguimos acessar determinados dados para algumas observações. De modo geral, representamos esses valores como _missing_. No R, representamos valores _missing_ como NAs e para testar se um valor é NA __NÃO__ podemos utilizar o operador `==`. Por que?
+
+```{r}
+NA == NA
+```
+
+Ao invés de `==`, nós utilizamos a função `is.na()`.
+
+```{r}
+is.na(NA)
+```
+
+Para testar se um valor __não__ é um _missing_, precisamos adicionar um `!` antes do `is.na()`.
+
+```{r}
+!is.na("oi")
+
+!is.na(NA)
+```
+
+| Operador       | Símbolo |
+| -------------- |:-------:| 
+| Igual          | ==      |
+| Diferente      | !=      |
+| Maior          | >       |
+| Maior ou igual | >=      |
+| Menor          | <       |
+| Menor ou igual | <=      |
+| É missing      | is.na() |
+
+### Aplicando operações booleanas em `filter`.
+
+Após essa breve exposição, talvez você tenha uma ideia de que como iremos _filtrar_ as observações que __não__ são _missings_ na variável `institutions`.
+
+```{r}
+banco_3 <- filter(banco_2, !is.na(institutions))
+```
+
+Pronto, agora temos um banco com 290 observações.
+
+### mutate
+
+Por que transformar os nossos dados? Após importar um banco para o R, antes de realizar qualquer análise, precisamos (1) garantir que as nossas variáveis estão limpas, ou seja, que todos os valores estão condizentes com o padrão esperado (2) e, às vezes, precisamos _recodificá-las_ para algo com mais significado para nós.
+
+Quais _recodificações_ podem ser realizadas no nosso banco? Vamos utilizar novamente a função `glimpse` para ter uma ideia geral dos conteúdos das nossas variáveis.
+
+```{r}
+glimpse(banco_3)
+```
+
+Podemos, por exemplo, pensar na porcentagem de pessoas que participaram em pelo menos 50% do curso (`certified`/`participants`).
+
+```{r}
+banco_4 <- mutate(banco_3, 
+                  perc_certified = certified / participants)
+```
+
+Outra estatística relevante é a porcentagem de pessoas que compareceram em pelo menos 50% do curso (`audited`/`participants`).
+
+```{r}
+banco_5 <- mutate(banco_4, 
+                  perc_audited   = audited / participants)
+```
+
+Por fim, podemos pensar na quantidade de pessoas que ganharam certificado (`certified`) entre as que participaram em pelo menos 50% do curso (`audited`).
+
+```{r}
+banco_6 <- mutate(banco_5,
+                  perc_cert_aud  = certified / audited)
+```
+
+
+```{r}
+glimpse(banco_6)
+```
+
+
+### `count`, `group_by` e `summarise`
+
+## Exercício
