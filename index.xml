@@ -7,9 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Released under the MIT license</copyright>
+    <lastBuildDate>Thu, 05 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Primeiros Passos</title>
+      <link>/</link>
+      <pubDate>Thu, 05 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/</guid>
+      <description>1. Estrutura do Curso Esse curso tem como bojetivo apresentar as ferramentas básicas de programação e análise de dados no R. Com esse curso, você conseguirá:
+ Importar bancos de dados
+ Estruturar o banco de dados
+ Transformar, criar e modificar variáveis
+ Visualizar variáveis
+ Comunicar os resultados obtidos por meio do R Markdown
+  2. O que é o R? R é uma linguagem de programação muito utilizado para análise de dados.</description>
+    </item>
     
     <item>
       <title>Importação de dados</title>
@@ -51,22 +67,8 @@ Ciclo de Ciência de Dados Assim como este é o nosso primeiro workshop, o prime
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/manipular/</guid>
-      <description>O que veremos hoje:
- O pacote tidyverse.
- O que é tidy data?
- Como deixar os dados tidy com o tidyr.
- Os principais verbos do dplyr.
- Extra: Juntar dados de diferentes fontes
-  Introdução No nosso último encontro, trabalhamos um pouco com importação de dados e webscraping. Uma vez que essa etapa é realizada, como proceder com o nosso banco de dados? Como transformá-lo para algo mais significado para nós?</description>
-    </item>
-    
-    <item>
-      <title>Workshop 2018</title>
-      <link>/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/</guid>
-      <description>##</description>
+      <description>Introdução No nosso último encontro, trabalhamos um pouco com importação de dados e webscraping. Uma vez que essa etapa é realizada, como proceder com o nosso banco de dados? Como transformá-lo para algo mais significado para nós? Hoje iremos entender como funciona a estruturação e a transformação de dados, de acordo com o tidyverse approach.
+Estruturação  tidy datasets are all alike but every messy dataset is messy in its own way (Hadley, 2014)</description>
     </item>
     
   </channel>

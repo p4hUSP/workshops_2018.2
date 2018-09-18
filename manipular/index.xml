@@ -17,13 +17,8 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/manipular/</guid>
-      <description>O que veremos hoje:
- O pacote tidyverse.
- O que é tidy data?
- Como deixar os dados tidy com o tidyr.
- Os principais verbos do dplyr.
- Extra: Juntar dados de diferentes fontes
-  Introdução No nosso último encontro, trabalhamos um pouco com importação de dados e webscraping. Uma vez que essa etapa é realizada, como proceder com o nosso banco de dados? Como transformá-lo para algo mais significado para nós?</description>
+      <description>Introdução No nosso último encontro, trabalhamos um pouco com importação de dados e webscraping. Uma vez que essa etapa é realizada, como proceder com o nosso banco de dados? Como transformá-lo para algo mais significado para nós? Hoje iremos entender como funciona a estruturação e a transformação de dados, de acordo com o tidyverse approach.
+Estruturação  tidy datasets are all alike but every messy dataset is messy in its own way (Hadley, 2014)</description>
     </item>
     
   </channel>

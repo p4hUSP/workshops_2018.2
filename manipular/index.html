@@ -13,7 +13,7 @@
     <meta name="generator" content="Hugo 0.22" />
 
     
-    <meta name="description" content="Material para Workshops da P4H">
+    <meta name="description" content="Material para Workshop P4H">
     
     <link rel="canonical" href="../manipular/">
     
@@ -253,302 +253,346 @@
 
 			
 
-<p>O que veremos hoje:</p>
-
-<ul>
-<li><p><a href="#tidyverse">O pacote <code>tidyverse</code>.</a></p></li>
-
-<li><p><a href="#tidydata">O que é <em>tidy data</em>?</a></p></li>
-
-<li><p><a href="#tidy">Como deixar os dados tidy com o <code>tidyr</code>.</a></p></li>
-
-<li><p><a href="#dplyr">Os principais verbos do <code>dplyr</code>.</a></p></li>
-
-<li><p><a href="#joins">Extra: Juntar dados de diferentes fontes</a></p></li>
-</ul>
-
 <h2 id="introdução">Introdução</h2>
 
 <p>No nosso último encontro, trabalhamos um pouco com importação de dados e <em>webscraping</em>. Uma vez que essa etapa é realizada, como proceder com o nosso banco de dados? Como transformá-lo para algo mais significado para nós? Hoje iremos entender como funciona a estruturação e a transformação de dados, de acordo com o <em>tidyverse approach</em>.</p>
 
-<p><img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_01.png" class="cienciadedados" class="center" class="center"></p>
+<p><img src="../imgs/w1_01.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
 
-<div id='tidyverse'></div>
-
-<h2 id="o-pacote-tidyverse">O pacote <code>tidyverse</code>.</h2>
-
-<p>O <code>tidyverse</code> é um conjunto de pacotes. Ao carregá-lo com o comando <code>library(tidyverse)</code>, nós habilitamos 8 pacotes:</p>
-
-<ol>
-<li><p><code>ggplot2</code> (visualização)</p></li>
-
-<li><p><code>dplyr</code> (transformação)</p></li>
-
-<li><p><code>tidyr</code> (estruturação)</p></li>
-
-<li><p><code>readr</code> (importação)</p></li>
-
-<li><p><code>purrr</code> (programação funcional)</p></li>
-
-<li><p><code>tibble</code> (estrutura de dados)</p></li>
-
-<li><p><code>stringr</code> (maniputalação de textos )</p></li>
-
-<li><p><code>forcats</code> (maniputação de variáveis categóricas)</p></li>
-</ol>
-
-<p>Cada um deles irá nos auxiliar durante um processo da análise de dados.</p>
-
-<div id='tidydata'></div>
-
-<h2 id="o-que-é-tidy-data">O que é <em>tidy data</em>?</h2>
+<h2 id="estruturação">Estruturação</h2>
 
 <blockquote>
 <p>tidy datasets are all alike but every messy dataset is messy in its own way (Hadley, 2014)</p>
 </blockquote>
 
-<p>Estruturar um banco é uma tarefa <strong>essencial</strong> antes de realizar qualquer operação. Uma banco desestruturado nos impede de transformar, visualizar e até modelar as nossas variáveis! Qual padrão iremos utilizar? Trabalharemos com bancos em que as linhas fazem referências a observações; as coluas, a variáveis; e a células, a valores.</p>
+<p>Estruturar um banco é uma tarefa <strong>essencial</strong> antes de realizar qualquer operação. Uma banco desestruturado nos impede de transformar, visualizar e até modelar as nossas variáveis! Qual padrão iremos utilizar? Trabalharemos com bancos em que as linhas contêm observações; as colunas, variáveis e as células, valores.</p>
 
-<p><img src="../imgs/tidy-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
-
-<table>
-<thead>
-<tr>
-<th align="left">PAIS</th>
-<th align="right">2010</th>
-<th align="right">2011</th>
-<th align="right">2012</th>
-<th align="right">2013</th>
-<th align="right">2014</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td align="left">Brasil</td>
-<td align="right">10.1</td>
-<td align="right">12.1</td>
-<td align="right">14.1</td>
-<td align="right">13.1</td>
-<td align="right">9.1</td>
-</tr>
-
-<tr>
-<td align="left">Uruguai</td>
-<td align="right">8.3</td>
-<td align="right">2.4</td>
-<td align="right">3.9</td>
-<td align="right">4.2</td>
-<td align="right">5.3</td>
-</tr>
-
-<tr>
-<td align="left">Espanha</td>
-<td align="right">7.2</td>
-<td align="right">4.7</td>
-<td align="right">4.2</td>
-<td align="right">1.7</td>
-<td align="right">3.2</td>
-</tr>
-
-<tr>
-<td align="left">África do Sul</td>
-<td align="right">3.3</td>
-<td align="right">1.4</td>
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">7.2</td>
-</tr>
-</tbody>
-</table>
-
-<pre><code class="language-r">t %&gt;% 
-  gather(`2010`:`2014`, key = &quot;ANO&quot;, value = &quot;DESEMPREGO&quot;) %&gt;% 
-  head() %&gt;% 
-  kable(caption = &quot;Exemplo de Banco Tidy&quot;)
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th align="left">PAIS</th>
-<th align="left">ANO</th>
-<th align="right">DESEMPREGO</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td align="left">Brasil</td>
-<td align="left">2010</td>
-<td align="right">10.1</td>
-</tr>
-
-<tr>
-<td align="left">Uruguai</td>
-<td align="left">2010</td>
-<td align="right">8.3</td>
-</tr>
-
-<tr>
-<td align="left">Espanha</td>
-<td align="left">2010</td>
-<td align="right">7.2</td>
-</tr>
-
-<tr>
-<td align="left">África do Sul</td>
-<td align="left">2010</td>
-<td align="right">3.3</td>
-</tr>
-
-<tr>
-<td align="left">Brasil</td>
-<td align="left">2011</td>
-<td align="right">12.1</td>
-</tr>
-
-<tr>
-<td align="left">Uruguai</td>
-<td align="left">2011</td>
-<td align="right">2.4</td>
-</tr>
-</tbody>
-</table>
-
-<div id='tidy'></div>
+<p><img src="../imgs/tidy-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></p>
 
 <h2 id="como-deixar-os-dados-tidy-com-o-tidyr">Como deixar os dados tidy com o <code>tidyr</code>.</h2>
 
-<pre><code class="language-r">banco &lt;- read_csv('../data/w2/w2_01_use.csv')
+<p>O pacote <code>tidyr</code> possui funções que irão nos auxiliar durante o processo de <em>estruturação</em> de um banco de dados. Ela é carregada com o comando <code>library(tidyverse)</code>.</p>
+
+<p>Neste workshop, iremos trabalhar com o banco de dados sobre cursos <em>online</em> oferecidos pelo MIT e pela Harvard.</p>
+
+<pre><code class="language-r"># Carrega o pacote tidyverse
+library(tidyverse)
+
+# Lê o banco de dado
+banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar o caminho
+</code></pre>
+
+<p>Após carregar o nosso banco de dados, podemos dar uma &ldquo;olhada rápida&rdquo; por ele com a função <code>glimpse</code>.</p>
+
+<pre><code class="language-r">glimpse(banco_1)
+</code></pre>
+
+<pre><code>## Observations: 290
+## Variables: 25
+## $ course_number                     &lt;chr&gt; &quot;6.002x&quot;, &quot;6.00x&quot;, &quot;3.091x&quot;,...
+## $ launch_month                      &lt;int&gt; 9, 9, 10, 10, 10, 2, 2, 2, 2...
+## $ launch_day                        &lt;int&gt; 5, 26, 9, 15, 15, 4, 5, 12, ...
+## $ course_title                      &lt;chr&gt; &quot;Circuits and Electronics&quot;, ...
+## $ instructors                       &lt;chr&gt; &quot;Khurram Afridi&quot;, &quot;Eric Grim...
+## $ course_subject                    &lt;chr&gt; &quot;Science, Technology, Engine...
+## $ year                              &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+## $ honor_code_certificates           &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+## $ participants                      &lt;int&gt; 36105, 62709, 16663, 129400,...
+## $ audited                           &lt;int&gt; 5431, 8949, 2855, 12888, 107...
+## $ certified                         &lt;int&gt; 3003, 5783, 2082, 1439, 5058...
+## $ percent_played_video              &lt;dbl&gt; 83.20, 89.14, 87.49, 0.00, 7...
+## $ percent_posted_forum              &lt;dbl&gt; 8.17, 14.38, 14.42, 0.00, 15...
+## $ percent_grade_higher_than_zero    &lt;dbl&gt; 28.97, 39.50, 34.89, 1.11, 3...
+## $ total_course_hours_per_1000       &lt;dbl&gt; 418.94, 884.04, 227.55, 220....
+## $ median_hours_for_certification    &lt;dbl&gt; 64.45, 78.53, 61.28, 0.00, 7...
+## $ median_age                        &lt;dbl&gt; 26, 28, 27, 28, 32, 27, 27, ...
+## $ percent_male                      &lt;dbl&gt; 88.28, 83.50, 70.32, 80.02, ...
+## $ percent_female                    &lt;dbl&gt; 11.72, 16.50, 29.68, 19.98, ...
+## $ percent_bachelor_degree_or_higher &lt;dbl&gt; 60.68, 63.04, 58.76, 58.78, ...
+## $ `2012`                            &lt;chr&gt; &quot;MITx&quot;, &quot;MITx&quot;, &quot;MITx&quot;, &quot;Har...
+## $ `2013`                            &lt;chr&gt; NA, NA, NA, NA, NA, &quot;MITx&quot;, ...
+## $ `2014`                            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, ...
+## $ `2015`                            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, ...
+## $ `2016`                            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, ...
 </code></pre>
 
 <h3 id="gather"><code>gather</code></h3>
 
-<pre><code class="language-r">gather(banco, c(&quot;2012&quot;, &quot;2013&quot;, &quot;2014&quot;, &quot;2015&quot;, &quot;2016&quot;), key = &quot;year&quot;, value = &quot;institutions&quot;) %&gt;% drop_na(institutions)
+<p>Repare que as últimas quatro colunas não são exatamente variáveis. <code>2012</code>, <code>2013</code>, <code>2014</code>, <code>2015</code> e <code>2016</code> na verdade são valores de uma outra variável, ao mesmo tempo que as células correspondentes a essas variáveis dizem respeito também a outra variável. Você saberia dizer tendo em vista apenas os valores quais são essas <strong>duas</strong> variáveis?</p>
+
+<pre><code class="language-r">banco_2 &lt;- gather(banco_1, c(&quot;2012&quot;, &quot;2013&quot;, &quot;2014&quot;, &quot;2015&quot;, &quot;2016&quot;), key = &quot;year&quot;, value = &quot;institutions&quot;)
 </code></pre>
 
-<pre><code>## # A tibble: 290 x 21
-##    course_number launch_month launch_day course_title instructors
-##    &lt;chr&gt;                &lt;int&gt;      &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;      
-##  1 6.002x                   9          5 Circuits an… Khurram Af…
-##  2 6.00x                    9         26 Introductio… Eric Grims…
-##  3 3.091x                  10          9 Introductio… Michael Ci…
-##  4 CS50x                   10         15 Introductio… David Mala…
-##  5 PH207x                  10         15 Health in N… Earl Franc…
-##  6 6.00x                    2          4 Introductio… Larry Rudo…
-##  7 3.091x                   2          5 Introductio… Michael Ci…
-##  8 14.73x                   2         12 The Challen… Esther Duf…
-##  9 8.02x                    2         18 Electricity… Walter Lew…
-## 10 ER22x                    3          2 Justice      Michael Sa…
-## # ... with 280 more rows, and 16 more variables: course_subject &lt;chr&gt;,
-## #   honor_code_certificates &lt;int&gt;, participants &lt;int&gt;, audited &lt;int&gt;,
-## #   certified &lt;int&gt;, percent_played_video &lt;dbl&gt;,
-## #   percent_posted_forum &lt;dbl&gt;, percent_grade_higher_than_zero &lt;dbl&gt;,
-## #   total_course_hours_per_1000 &lt;dbl&gt;,
-## #   median_hours_for_certification &lt;dbl&gt;, median_age &lt;dbl&gt;,
-## #   percent_male &lt;dbl&gt;, percent_female &lt;dbl&gt;,
-## #   percent_bachelor_degree_or_higher &lt;dbl&gt;, year &lt;chr&gt;,
-## #   institutions &lt;chr&gt;
+<p>Se você está familiarizado com a notação <em>wide</em> e <em>long</em>, o que acabamos de fazer foi transformar um banco com características <em>wide</em> em um <em>long</em>. É possível ir além e afirmar que o formato <em>tidy data</em> sempre é um banco <em>long</em>.</p>
+
+<p>Uma outra maneira de entender o que aconteceu é pensar que as linhas foram <em>derretidas</em> para formar novas variáveis.</p>
+
+<h2 id="os-principais-verbos-do-dplyr">Os principais verbos do dplyr.</h2>
+
+<p>As funções do pacote <code>dplyr</code> podem</p>
+
+<ol>
+<li><p><code>filter</code>: filtra as linhas de um banco de dados de acordo com uma regra lógica.</p></li>
+
+<li><p><code>mutate</code>: modifica ou cria colunas de acordo com valores fornecidos.</p></li>
+
+<li><p><code>select</code>: seleciona ou exclui colunas de um banco de dados.</p></li>
+
+<li><p><code>count</code>: conta os valores e uma variável.</p>
+
+<ul>
+<li>Especialmente útil para variáveis categóricas.
+<br /></li>
+</ul></li>
+
+<li><p><code>group_by</code> e <code>summarise</code>: são funções normalmente utilizadas em conjunto. Elas permitem realizar operações de agregações com o banco de dados e, assim, alterar a unidade de análise.</p></li>
+</ol>
+
+<h3 id="filter">filter</h3>
+
+<p>Vamos voltar ao nosso banco de cursos <em>online</em>. Após realizarmos uma operação a fim de tornar o nosso banco <em>long</em>, você reparou que o número de observações aumentou? Podemos verificar isso com a função <code>nrow()</code>.</p>
+
+<pre><code class="language-r">nrow(banco_1)
 </code></pre>
 
-<h3 id="spread-unite-e-separate"><code>spread</code>, <code>unite</code> e <code>separate</code></h3>
+<pre><code>## [1] 290
+</code></pre>
 
-<div id='dplyr'></div>
+<pre><code class="language-r">nrow(banco_2)
+</code></pre>
 
-<h2 id="os-principais-verbos-do-dplyr">Os principais verbos do <code>dplyr</code>.</h2>
+<pre><code>## [1] 1450
+</code></pre>
+
+<p>De 290 observações, fomos para 1450! Em alguns casos, isso não seria um problema. Porém, neste em caso em específico, houve uma criação de vários valores NA (missing) para a coluna <code>institutions</code>. Isso ocorreu porque no fundo esse banco foi transformado previamente com objetivo de produzir um exemplo para este tutorial.</p>
+
+<p>Independentemente disso, temos que arrumar esse problema e excluir as linhas com valor NA. Como realizar isso? Antes precisamos trabalhar rapidamente com avaliações lógicas no R como também entender melhor qual a natureza desse valor de <em>missing</em> no R, o <code>NA</code>.</p>
+
+<h3 id="valores-booleanos-e-avaliações-lógicas">Valores Booleanos e Avaliações Lógicas</h3>
+
+<p>Valores booleanos são resultados de operações booleanas e podem ser definidos como <strong>verdadeiros</strong> ou <strong>falsos</strong>. Por convenção, trabalhamos com os termos em inglês. Portanto, <strong>TRUE</strong> ou <strong>FALSE</strong>.</p>
+
+<p>Por operações booleanas, podemos pensar em diferentes testes que tenham <strong>necessariamente</strong> uma resposta ou verdadeira ou falsa. Por exemplo, 3 é maior do que 1? Verdadeiro! E 3 é menor do que 2? Falso! Vamos realizar essas duas operações no R.</p>
+
+<pre><code class="language-r"># 3 é maior do que 1?
+
+3 &gt; 1
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="language-r"># 3 é maior do que 1?
+
+3 &lt; 2
+</code></pre>
+
+<pre><code>## [1] FALSE
+</code></pre>
+
+<p>Existem, obviamente, outras operações. É possível também testar a igualdade entre dois valores com <code>==</code>.</p>
+
+<pre><code class="language-r"># 2 é igual a 2?
+
+2 == 2
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<p>Também podemos testar se dois valores são diferentes.</p>
+
+<pre><code class="language-r">#120 é diferente de 20?
+
+120 != 20
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<p>Outras variações utilizadas são o maior ou igual (<code>&gt;=</code>) e o menor ou igual (<code>&lt;=</code>). Além disso, também é possível realizar essas operações com textos.</p>
+
+<pre><code class="language-r"># &quot;harvard&quot; é igual a &quot;MIT&quot;?
+
+&quot;harvard&quot; == &quot;MIT&quot;
+</code></pre>
+
+<pre><code>## [1] FALSE
+</code></pre>
+
+<p>Não iremos introduzir essa ideia aqui, mas caso seja de interesse também podemos utilizar as noções de maior e menor para textos. Você teria um palpite de como um texto pode ser maior do que outro?</p>
+
+<p>Por fim, temos uma operação booleana no R para testar se um valor é <em>missing</em>. Normalmente, ao realizar a nossa coleta de dados, não conseguimos acessar determinados dados para algumas observações. De modo geral, representamos esses valores como <em>missing</em>. No R, representamos valores <em>missing</em> como NAs e para testar se um valor é NA <strong>NÃO</strong> podemos utilizar o operador <code>==</code>. Por que?</p>
+
+<pre><code class="language-r">NA == NA
+</code></pre>
+
+<pre><code>## [1] NA
+</code></pre>
+
+<p>Ao invés de <code>==</code>, nós utilizamos a função <code>is.na()</code>.</p>
+
+<pre><code class="language-r">is.na(NA)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<p>Para testar se um valor <strong>não</strong> é um <em>missing</em>, precisamos adicionar um <code>!</code> antes do <code>is.na()</code>.</p>
+
+<pre><code class="language-r">!is.na(&quot;oi&quot;)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="language-r">!is.na(NA)
+</code></pre>
+
+<pre><code>## [1] FALSE
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th align="center">Símbolo</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Igual</td>
+<td align="center">==</td>
+</tr>
+
+<tr>
+<td>Diferente</td>
+<td align="center">!=</td>
+</tr>
+
+<tr>
+<td>Maior</td>
+<td align="center">&gt;</td>
+</tr>
+
+<tr>
+<td>Maior ou igual</td>
+<td align="center">&gt;=</td>
+</tr>
+
+<tr>
+<td>Menor</td>
+<td align="center">&lt;</td>
+</tr>
+
+<tr>
+<td>Menor ou igual</td>
+<td align="center">&lt;=</td>
+</tr>
+
+<tr>
+<td>É missing</td>
+<td align="center">is.na()</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="aplicando-operações-booleanas-em-filter">Aplicando operações booleanas em <code>filter</code>.</h3>
+
+<p>Após essa breve exposição, talvez você tenha uma ideia de que como iremos <em>filtrar</em> as observações que <strong>não</strong> são <em>missings</em> na variável <code>institutions</code>.</p>
+
+<pre><code class="language-r">banco_3 &lt;- filter(banco_2, !is.na(institutions))
+</code></pre>
+
+<p>Pronto, agora temos um banco com 290 observações.</p>
+
+<h3 id="mutate">mutate</h3>
 
 <p>Por que transformar os nossos dados? Após importar um banco para o R, antes de realizar qualquer análise, precisamos (1) garantir que as nossas variáveis estão limpas, ou seja, que todos os valores estão condizentes com o padrão esperado (2) e, às vezes, precisamos <em>recodificá-las</em> para algo com mais significado para nós.</p>
 
-<p>Vamos ver alguns exemplos, antes de continuar. O que entendemos por limpar um banco? Imagine que ao coletar a renda de alguns indivíduos você tenha introduzido um hífem para identificar não respostas.</p>
+<p>Quais <em>recodificações</em> podem ser realizadas no nosso banco? Vamos utilizar novamente a função <code>glimpse</code> para ter uma ideia geral dos conteúdos das nossas variáveis.</p>
 
-<table>
-<thead>
-<tr>
-<th align="left">RENDA</th>
-<th align="right">RENDA_NEW</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td align="left">19991,32</td>
-<td align="right">19991.32</td>
-</tr>
-
-<tr>
-<td align="left">-</td>
-<td align="right">NA</td>
-</tr>
-
-<tr>
-<td align="left">-</td>
-<td align="right">NA</td>
-</tr>
-
-<tr>
-<td align="left">829,23</td>
-<td align="right">829.23</td>
-</tr>
-
-<tr>
-<td align="left">9293,12</td>
-<td align="right">9293.12</td>
-</tr>
-
-<tr>
-<td align="left">839,79</td>
-<td align="right">839.79</td>
-</tr>
-</tbody>
-</table>
-
-<p>Embora isso possa ser considerado um procedimento válido durante a coleta, ele irá causar problemas durante a nossa análise. Uma vez que &ldquo;-&rdquo; é um texto, o R não sabe como compará-lo com valores numéricos (19991.32, por exemplo). Nesse sentido, precisamos explicitar para o R que &ldquo;-&rdquo; na verdade é um valor <em>missing</em>. Iremos ver que, na prática, transformaremos o &ldquo;-&rdquo; em NA através das funções <code>mutate</code> e <code>ifelse</code>.</p>
-
-<p>Outro exemplo de transformação é a necessidade de <em>recodificação</em> os valores de uma variável. Estamos falando, por exemplo, de criação de faixas para variáveis contínuas, reclassificação de variáveis categóricas, inflacionar/deflacionar valores monetários, etc. Um caso prático é a reclassificação das categorias do IBGE para valores com maior significado sociológico. É relaticamente comum classificar indíginas, pretos e pardos como não-brancos para fins de análise de desigualdade racial.</p>
-
-<table>
-<thead>
-<tr>
-<th align="left">RACA_IBGE</th>
-<th align="left">RACA_NEW</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td align="left">INDÍGENA</td>
-<td align="left">NÃO BRANCOS</td>
-</tr>
-
-<tr>
-<td align="left">PRETA</td>
-<td align="left">NÃO BRANCOS</td>
-</tr>
-
-<tr>
-<td align="left">PARDA</td>
-<td align="left">NÃO BRANCOS</td>
-</tr>
-
-<tr>
-<td align="left">BRANCA</td>
-<td align="left">BRANCOS</td>
-</tr>
-</tbody>
-</table>
-
-<p>Uma vez que você tenha entendido para que precisamos transformar os nossos dados, vamos colocar a mão na massa e tentar realizar essa atividade por meio códigos!!!</p>
-
-<p>A estrutura para modificar variáveis no R por meio do <code>tidyverse</code> segue sempre o mesmo padrão:</p>
-
-<pre><code class="language-r">mutate(BANCO_DE_DADOS,
-       VARIAVEL QUE QUEREMOS CRIAR/MODIFICAR    =   VALOR QUE A VARIÁVEL IRÁ RECEBER)
+<pre><code class="language-r">glimpse(banco_3)
 </code></pre>
 
-<p><code>mutate</code> é uma função bem versátil e será muito utilizada por você sempre que quiser <strong>acessar</strong> as variáveis de um <code>data frame</code>. Experimente por exemplo criar uma coluna com</p>
+<pre><code>## Observations: 290
+## Variables: 21
+## $ course_number                     &lt;chr&gt; &quot;6.002x&quot;, &quot;6.00x&quot;, &quot;3.091x&quot;,...
+## $ launch_month                      &lt;int&gt; 9, 9, 10, 10, 10, 2, 2, 2, 2...
+## $ launch_day                        &lt;int&gt; 5, 26, 9, 15, 15, 4, 5, 12, ...
+## $ course_title                      &lt;chr&gt; &quot;Circuits and Electronics&quot;, ...
+## $ instructors                       &lt;chr&gt; &quot;Khurram Afridi&quot;, &quot;Eric Grim...
+## $ course_subject                    &lt;chr&gt; &quot;Science, Technology, Engine...
+## $ honor_code_certificates           &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+## $ participants                      &lt;int&gt; 36105, 62709, 16663, 129400,...
+## $ audited                           &lt;int&gt; 5431, 8949, 2855, 12888, 107...
+## $ certified                         &lt;int&gt; 3003, 5783, 2082, 1439, 5058...
+## $ percent_played_video              &lt;dbl&gt; 83.20, 89.14, 87.49, 0.00, 7...
+## $ percent_posted_forum              &lt;dbl&gt; 8.17, 14.38, 14.42, 0.00, 15...
+## $ percent_grade_higher_than_zero    &lt;dbl&gt; 28.97, 39.50, 34.89, 1.11, 3...
+## $ total_course_hours_per_1000       &lt;dbl&gt; 418.94, 884.04, 227.55, 220....
+## $ median_hours_for_certification    &lt;dbl&gt; 64.45, 78.53, 61.28, 0.00, 7...
+## $ median_age                        &lt;dbl&gt; 26, 28, 27, 28, 32, 27, 27, ...
+## $ percent_male                      &lt;dbl&gt; 88.28, 83.50, 70.32, 80.02, ...
+## $ percent_female                    &lt;dbl&gt; 11.72, 16.50, 29.68, 19.98, ...
+## $ percent_bachelor_degree_or_higher &lt;dbl&gt; 60.68, 63.04, 58.76, 58.78, ...
+## $ year                              &lt;chr&gt; &quot;2012&quot;, &quot;2012&quot;, &quot;2012&quot;, &quot;201...
+## $ institutions                      &lt;chr&gt; &quot;MITx&quot;, &quot;MITx&quot;, &quot;MITx&quot;, &quot;Har...
+</code></pre>
 
-<h2 id="extra-bancos-relacionais-o-que-são-e-como-utilizá-los">EXTRA: Bancos relacionais. O que são e como utilizá-los?</h2>
+<p>Podemos, por exemplo, pensar na porcentagem de pessoas que participaram em pelo menos 50% do curso (<code>certified</code>/<code>participants</code>).</p>
+
+<pre><code class="language-r">banco_4 &lt;- mutate(banco_3, 
+                  perc_certified = certified / participants)
+</code></pre>
+
+<p>Outra estatística relevante é a porcentagem de pessoas que compareceram em pelo menos 50% do curso (<code>audited</code>/<code>participants</code>).</p>
+
+<pre><code class="language-r">banco_5 &lt;- mutate(banco_4, 
+                  perc_audited   = audited / participants)
+</code></pre>
+
+<p>Por fim, podemos pensar na quantidade de pessoas que ganharam certificado (<code>certified</code>) entre as que participaram em pelo menos 50% do curso (<code>audited</code>).</p>
+
+<pre><code class="language-r">banco_6 &lt;- mutate(banco_5,
+                  perc_cert_aud  = certified / audited)
+</code></pre>
+
+<pre><code class="language-r">glimpse(banco_6)
+</code></pre>
+
+<pre><code>## Observations: 290
+## Variables: 24
+## $ course_number                     &lt;chr&gt; &quot;6.002x&quot;, &quot;6.00x&quot;, &quot;3.091x&quot;,...
+## $ launch_month                      &lt;int&gt; 9, 9, 10, 10, 10, 2, 2, 2, 2...
+## $ launch_day                        &lt;int&gt; 5, 26, 9, 15, 15, 4, 5, 12, ...
+## $ course_title                      &lt;chr&gt; &quot;Circuits and Electronics&quot;, ...
+## $ instructors                       &lt;chr&gt; &quot;Khurram Afridi&quot;, &quot;Eric Grim...
+## $ course_subject                    &lt;chr&gt; &quot;Science, Technology, Engine...
+## $ honor_code_certificates           &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+## $ participants                      &lt;int&gt; 36105, 62709, 16663, 129400,...
+## $ audited                           &lt;int&gt; 5431, 8949, 2855, 12888, 107...
+## $ certified                         &lt;int&gt; 3003, 5783, 2082, 1439, 5058...
+## $ percent_played_video              &lt;dbl&gt; 83.20, 89.14, 87.49, 0.00, 7...
+## $ percent_posted_forum              &lt;dbl&gt; 8.17, 14.38, 14.42, 0.00, 15...
+## $ percent_grade_higher_than_zero    &lt;dbl&gt; 28.97, 39.50, 34.89, 1.11, 3...
+## $ total_course_hours_per_1000       &lt;dbl&gt; 418.94, 884.04, 227.55, 220....
+## $ median_hours_for_certification    &lt;dbl&gt; 64.45, 78.53, 61.28, 0.00, 7...
+## $ median_age                        &lt;dbl&gt; 26, 28, 27, 28, 32, 27, 27, ...
+## $ percent_male                      &lt;dbl&gt; 88.28, 83.50, 70.32, 80.02, ...
+## $ percent_female                    &lt;dbl&gt; 11.72, 16.50, 29.68, 19.98, ...
+## $ percent_bachelor_degree_or_higher &lt;dbl&gt; 60.68, 63.04, 58.76, 58.78, ...
+## $ year                              &lt;chr&gt; &quot;2012&quot;, &quot;2012&quot;, &quot;2012&quot;, &quot;201...
+## $ institutions                      &lt;chr&gt; &quot;MITx&quot;, &quot;MITx&quot;, &quot;MITx&quot;, &quot;Har...
+## $ perc_certified                    &lt;dbl&gt; 0.08317408, 0.09221962, 0.12...
+## $ perc_audited                      &lt;dbl&gt; 0.15042238, 0.14270679, 0.17...
+## $ perc_cert_aud                     &lt;dbl&gt; 0.5529368, 0.6462175, 0.7292...
+</code></pre>
+
+<h3 id="count-group-by-e-summarise"><code>count</code>, <code>group_by</code> e <code>summarise</code></h3>
+
+<h2 id="exercício">Exercício</h2>
 
 
 			<aside class="copyright" role="note">
@@ -586,22 +630,6 @@
   </div>
 
   <div class="next">
-  
-      <a href="../" title="Workshop 2018">
-        <span class="direction">
-          Next
-        </span>
-        <div class="page">
-          <div class="stretch">
-            <div class="title">
-              Workshop 2018
-            </div>
-          </div>
-          <div class="button button-next" role="button" aria-label="Next">
-            <i class="icon icon-forward"></i>
-          </div>
-        </div>
-      </a>
   
   </div>
 </nav>
@@ -682,7 +710,7 @@
         })(window, document,
           'script', '//www.google-analytics.com/analytics.js', 'ga');
          
-        ga('create', 'UA-119683862-1', 'auto');
+        ga('create', 'UA-125947516-1', 'auto');
         ga('set', 'anonymizeIp', true);
         ga('send', 'pageview');
          
