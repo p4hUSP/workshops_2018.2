@@ -353,7 +353,32 @@ glimpse(banco_6)
 ## $ perc_cert_aud                     <dbl> 0.5529368, 0.6462175, 0.7292...
 ```
 
-
 ### `count`, `group_by` e `summarise`
+
+Além de transformações com objetivo de __recodificar__ variáveis, o `dplyr` oferece funções para análise do nosso banco. 
+
+#### `count`
+
+
+```r
+banco_6 %>% 
+  count
+```
+
+```
+## # A tibble: 1 x 1
+##       n
+##   <int>
+## 1   290
+```
+
+
+
+
+#### `group by` e `summarise`
+
+Na última seção, criamos proporções de pessoas que completaram o curso e que 
+
+* Média das proporções criadas no exercício anterior
 
 ## Exercício
