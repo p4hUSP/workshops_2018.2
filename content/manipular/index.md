@@ -299,7 +299,7 @@ Podemos, por exemplo, pensar na porcentagem de pessoas que participaram em pelo 
 
 ```r
 banco_4 <- mutate(banco_3, 
-                  perc_certified = certified / participants)
+                  perc_certified = (certified / participants) * 100)
 ```
 
 Outra estatística relevante é a porcentagem de pessoas que compareceram em pelo menos 50% do curso (`audited`/`participants`).
@@ -307,7 +307,7 @@ Outra estatística relevante é a porcentagem de pessoas que compareceram em pel
 
 ```r
 banco_5 <- mutate(banco_4, 
-                  perc_audited   = audited / participants)
+                  perc_audited   = (audited / participants) * 100)
 ```
 
 Por fim, podemos pensar na quantidade de pessoas que ganharam certificado (`certified`) entre as que participaram em pelo menos 50% do curso (`audited`).
@@ -315,7 +315,7 @@ Por fim, podemos pensar na quantidade de pessoas que ganharam certificado (`cert
 
 ```r
 banco_6 <- mutate(banco_5,
-                  perc_cert_aud  = certified / audited)
+                  perc_cert_aud  = (certified / audited) * 100)
 ```
 
 
@@ -348,37 +348,196 @@ glimpse(banco_6)
 ## $ percent_bachelor_degree_or_higher <dbl> 60.68, 63.04, 58.76, 58.78, ...
 ## $ year                              <chr> "2012", "2012", "2012", "201...
 ## $ institutions                      <chr> "MITx", "MITx", "MITx", "Har...
-## $ perc_certified                    <dbl> 0.08317408, 0.09221962, 0.12...
-## $ perc_audited                      <dbl> 0.15042238, 0.14270679, 0.17...
-## $ perc_cert_aud                     <dbl> 0.5529368, 0.6462175, 0.7292...
+## $ perc_certified                    <dbl> 8.317408, 9.221962, 12.49474...
+## $ perc_audited                      <dbl> 15.042238, 14.270679, 17.133...
+## $ perc_cert_aud                     <dbl> 55.29368, 64.62175, 72.92469...
 ```
 
-### `count`, `group_by` e `summarise`
+### Verboas para Análise de Dados
 
-Além de transformações com objetivo de __recodificar__ variáveis, o `dplyr` oferece funções para análise do nosso banco. 
+Além de transformações com objetivo de __recodificar__ variáveis, o `dplyr` oferece funções para análises do nosso banco. 
 
-#### `count`
+#### `group by` e `summarise`
+
+Na última seção, criamos proporções de pessoas que completaram o curso (`perc_certified`), que participaram de pelo menos 50% das aulas (`perc_audited`) e que completaram o curso entre aqueles que participaram de pelo menos 50% das aulas (`perc_cert_aud`).
+
+Para isso, precisamos utilizar duas funções: `group_by()` e `summarise()`. Essas funções, em conjunto, são poderosíssimas para análise exploratória dos nossos dados. Vamos começar pela `summarise()`.
 
 
 ```r
-banco_6 %>% 
-  count
+summarise(banco_6, MEDIA = mean(perc_certified))
 ```
 
 ```
 ## # A tibble: 1 x 1
-##       n
-##   <int>
-## 1   290
+##   MEDIA
+##   <dbl>
+## 1  7.78
+```
+
+No último comando, descobrimos que 7,7% é a média de certificados "emitidos" por curso. O cálculo dessa média foi realizado para TODAS as observações do nosso banco. Agora, como fariámos para calcular a média de certicidados emitidos por instituição? Para isso, precisamos utilizar uma função `group_by()` __antes__.
+
+
+```r
+banco_6 %>% 
+  group_by(institutions) %>% 
+  summarise(CERTIFICADOS = mean(perc_certified))
+```
+
+```
+## # A tibble: 2 x 2
+##   institutions CERTIFICADOS
+##   <chr>               <dbl>
+## 1 HarvardX            10.9 
+## 2 MITx                 5.25
+```
+
+Percebe como `group_by()` e `summarise()` em conjunto são ferramentas poderosas? Podemos repetir o processo para as outras variáveis.
+
+
+```r
+banco_6 %>% 
+  group_by(institutions) %>% 
+  summarise(PARICIPARAM_50 = mean(perc_audited))
+```
+
+```
+## # A tibble: 2 x 2
+##   institutions PARICIPARAM_50
+##   <chr>                 <dbl>
+## 1 HarvardX               31.9
+## 2 MITx                   19.3
 ```
 
 
+```r
+banco_6 %>% 
+  group_by(institutions) %>% 
+  summarise(CERT_PART_50 = mean(perc_cert_aud))
+```
+
+```
+## # A tibble: 2 x 2
+##   institutions CERT_PART_50
+##   <chr>               <dbl>
+## 1 HarvardX             35.2
+## 2 MITx                 29.9
+```
+
+A fim de tornar o nosso trablho mais eficiente, podemos calcular mais de uma estatística dentro de `summarise()`. Logo, ao invés de calcular cada média individualmente, podemos calcular todas de uma vez.
 
 
-#### `group by` e `summarise`
+```r
+banco_6 %>% 
+  group_by(institutions) %>% 
+  summarise(CERTIFICADOS   = mean(perc_certified),
+            PARICIPARAM_50 = mean(perc_audited),
+            CERT_PART_50   = mean(perc_cert_aud))
+```
 
-Na última seção, criamos proporções de pessoas que completaram o curso e que 
+```
+## # A tibble: 2 x 4
+##   institutions CERTIFICADOS PARICIPARAM_50 CERT_PART_50
+##   <chr>               <dbl>          <dbl>        <dbl>
+## 1 HarvardX            10.9            31.9         35.2
+## 2 MITx                 5.25           19.3         29.9
+```
 
-* Média das proporções criadas no exercício anterior
+Além de realizar mais de um cálculo por vez, também é possível adicionar mais de uma variável para o `group_by()`. Ao fazer isso, você irá trabalhar com a combinação das duas variáveis, ou seja, çaso selecionemos uma variável com __3__ categorias e uma segunda com __4__, teremos no final __12__ (3 x 4) categorias. 
+
+Como exemplo, vamos pensar a porcentagem de certificados emitidos por ano (`perc_certified`) e por instituição (`institutions`).
+
+
+```r
+banco_6 %>% 
+  group_by(year, institutions) %>% 
+  summarise(CERTIFICADOS = mean(perc_certified))
+```
+
+```
+## # A tibble: 10 x 3
+## # Groups:   year [?]
+##    year  institutions CERTIFICADOS
+##    <chr> <chr>               <dbl>
+##  1 2012  HarvardX             5.37
+##  2 2012  MITx                10.0 
+##  3 2013  HarvardX             6.58
+##  4 2013  MITx                 6.58
+##  5 2014  HarvardX            14.9 
+##  6 2014  MITx                 6.15
+##  7 2015  HarvardX            12.3 
+##  8 2015  MITx                 5.62
+##  9 2016  HarvardX             4.57
+## 10 2016  MITx                 3.20
+```
+
+#### `count`
+
+Com a função `count()` podemos contar as categorias presentes dentro de uma variável.
+
+
+```r
+banco_6 %>% 
+  count(institutions)
+```
+
+```
+## # A tibble: 2 x 2
+##   institutions     n
+##   <chr>        <int>
+## 1 HarvardX       129
+## 2 MITx           161
+```
+
+
+```r
+banco_6 %>% 
+  count(course_subject)
+```
+
+```
+## # A tibble: 4 x 2
+##   course_subject                                           n
+##   <chr>                                                <int>
+## 1 Computer Science                                        30
+## 2 Government, Health, and Social Science                  75
+## 3 Humanities, History, Design, Religion, and Education    94
+## 4 Science, Technology, Engineering, and Mathematics       91
+```
+
+Também é possível, por exemplo, fornecer mais de uma variável para `count()`. Isso fará com que ela calcule a quantidade de observações presentes para as __combinações__ de categorias.
+
+
+```r
+banco_6 %>% 
+  count(institutions, course_subject)
+```
+
+```
+## # A tibble: 8 x 3
+##   institutions course_subject                                           n
+##   <chr>        <chr>                                                <int>
+## 1 HarvardX     Computer Science                                         4
+## 2 HarvardX     Government, Health, and Social Science                  37
+## 3 HarvardX     Humanities, History, Design, Religion, and Education    80
+## 4 HarvardX     Science, Technology, Engineering, and Mathematics        8
+## 5 MITx         Computer Science                                        26
+## 6 MITx         Government, Health, and Social Science                  38
+## 7 MITx         Humanities, History, Design, Religion, and Education    14
+## 8 MITx         Science, Technology, Engineering, and Mathematics       83
+```
+
 
 ## Exercício
+
+1. Investigue quais os temas de curso (`course_subject`) mais recorrentes para cada instituição (`institutions`).
+
+2. Investigue a distribuição de gênero (`percent_female` e `percent_male`).
+
+    + 2.1. Para cada instituição (`institutions`). 
+    
+    + 2.2. Para cada tema de curso (`course_subject`)
+    
+    + 2.3. Qual seria uma possível origem da diferença da proporção de mulheres entre os cursos oferecidos pela HarvardX e a MITx? (Dica: tente pensar nos cursos oferecidos por cada instituição)
+    
+3. Quais são os meses em que mais cursos são oferecidos?
