@@ -10,7 +10,7 @@ output: html_document
 
 No nosso último encontro, trabalhamos um pouco com importação de dados e _webscraping_. Uma vez que essa etapa é realizada, como proceder com o nosso banco de dados? Como transformá-lo para algo mais significado para nós? Hoje iremos entender como funciona a estruturação e a transformação de dados, de acordo com o _tidyverse approach_.
 
-<img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_01.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
+<img src="https://raw.githubusercontent.com/p4hUSP/workshops_2018.2/master/imgs/w1_01.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
 
 ## Estruturação
 
@@ -18,7 +18,7 @@ No nosso último encontro, trabalhamos um pouco com importação de dados e _web
 
 Estruturar um banco é uma tarefa __essencial__ antes de realizar qualquer operação. Uma banco desestruturado nos impede de transformar, visualizar e até modelar as nossas variáveis! Qual padrão iremos utilizar? Trabalharemos com bancos em que as linhas contêm observações; as colunas, variáveis e as células, valores.
 
-<img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/tidy-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
+<img src="https://raw.githubusercontent.com/p4hUSP/workshops_2018.2/master/imgs/tidy-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
 
 ## Como deixar os dados tidy com o `tidyr`.
 

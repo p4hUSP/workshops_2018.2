@@ -17,7 +17,7 @@ library(knitr)
 No nosso último encontro, trabalhamos um pouco com importação de dados e _webscraping_. Uma vez que essa etapa é realizada, como proceder com o nosso banco de dados? Como transformá-lo para algo mais significado para nós? Hoje iremos entender como funciona a estruturação e a transformação de dados, de acordo com o _tidyverse approach_.
 
 ```{r, echo = FALSE, fig.align='center', fig.height=5.0, fig.width=7.0}
-knitr::include_graphics('https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_01.png')
+knitr::include_graphics("https://raw.githubusercontent.com/p4hUSP/workshops_2018.2/master/imgs/w1_01.png")
 ```
 
 ## Estruturação
@@ -27,7 +27,7 @@ knitr::include_graphics('https://github.com/p4hUSP/workshops_2018.2/blob/master/
 Estruturar um banco é uma tarefa __essencial__ antes de realizar qualquer operação. Uma banco desestruturado nos impede de transformar, visualizar e até modelar as nossas variáveis! Qual padrão iremos utilizar? Trabalharemos com bancos em que as linhas contêm observações; as colunas, variáveis e as células, valores.
 
 ```{r, echo = FALSE, fig.align='center', fig.height=5.0, fig.width=7.0}
-knitr::include_graphics("https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/tidy-1.png")
+knitr::include_graphics("https://raw.githubusercontent.com/p4hUSP/workshops_2018.2/master/imgs/tidy-1.png")
 ```
 
 ## Como deixar os dados tidy com o `tidyr`.
