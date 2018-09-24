@@ -10,7 +10,7 @@ output: html_document
 
 No nosso último encontro, trabalhamos um pouco com importação de dados e _webscraping_. Uma vez que essa etapa é realizada, como proceder com o nosso banco de dados? Como transformá-lo para algo mais significado para nós? Hoje iremos entender como funciona a estruturação e a transformação de dados, de acordo com o _tidyverse approach_.
 
-<img src="../imgs/w1_01.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
+<img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w1_01.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
 
 ## Estruturação
 
@@ -18,7 +18,7 @@ No nosso último encontro, trabalhamos um pouco com importação de dados e _web
 
 Estruturar um banco é uma tarefa __essencial__ antes de realizar qualquer operação. Uma banco desestruturado nos impede de transformar, visualizar e até modelar as nossas variáveis! Qual padrão iremos utilizar? Trabalharemos com bancos em que as linhas contêm observações; as colunas, variáveis e as células, valores.
 
-<img src="../imgs/tidy-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
+<img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/tidy-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
 
 ## Como deixar os dados tidy com o `tidyr`.
 
@@ -84,6 +84,8 @@ banco_2 <- gather(banco_1, c("2012", "2013", "2014", "2015", "2016"), key = "yea
 Se você está familiarizado com a notação _wide_ e _long_, o que acabamos de fazer foi transformar um banco com características _wide_ em um _long_. É possível ir além e afirmar que o formato _tidy data_ sempre é um banco _long_.
 
 Uma outra maneira de entender o que aconteceu é pensar que as linhas foram _derretidas_ para formar novas variáveis.
+
+Obs: Se você tiver interesse de ir mais a fundo nas diferenças de _wide_ e _long_, assista este [vídeo](https://pt.coursera.org/lecture/designexperiments/21-long-format-and-wide-format-data-tables-dqWIT)
 
 ## Os principais verbos do dplyr.
 
