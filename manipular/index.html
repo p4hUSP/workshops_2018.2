@@ -338,8 +338,6 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 
 <li><p><code>mutate</code>: modifica ou cria colunas de acordo com valores fornecidos.</p></li>
 
-<li><p><code>select</code>: seleciona ou exclui colunas de um banco de dados.</p></li>
-
 <li><p><code>count</code>: conta os valores e uma variável.</p>
 
 <ul>
@@ -347,7 +345,9 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 <br /></li>
 </ul></li>
 
-<li><p><code>group_by</code> e <code>summarise</code>: são funções normalmente utilizadas em conjunto. Elas permitem realizar operações de agregações com o banco de dados e, assim, alterar a unidade de análise.</p></li>
+<li><p><code>group_by</code> e <code>summarise</code>: são funções normalmente utilizadas em conjunto. Elas permitem realizar operações de agregações com o banco de dados e, assim, alterar a nossa unidade de análise.</p></li>
+
+<li><p><code>rename</code>: altera o nome das variáveis (colunas).</p></li>
 </ol>
 
 <h3 id="filter">filter</h3>
@@ -374,7 +374,9 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 
 <p>Valores booleanos são resultados de operações booleanas e podem ser definidos como <strong>verdadeiros</strong> ou <strong>falsos</strong>. Por convenção, trabalhamos com os termos em inglês. Portanto, <strong>TRUE</strong> ou <strong>FALSE</strong>.</p>
 
-<p>Por operações booleanas, podemos pensar em diferentes testes que tenham <strong>necessariamente</strong> uma resposta ou verdadeira ou falsa. Por exemplo, 3 é maior do que 1? Verdadeiro! E 3 é menor do que 2? Falso! Vamos realizar essas duas operações no R.</p>
+<p>Por operações booleanas, podemos pensar em diferentes testes que tenham <strong>necessariamente</strong> uma resposta ou verdadeira ou falsa. Por exemplo, 3 é maior do que 1? Verdadeiro! E 3 é menor do que 2? Falso!</p>
+
+<p>Vamos realizar essas duas operações no R.</p>
 
 <pre><code class="language-r"># 3 é maior do que 1?
 
@@ -416,7 +418,7 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 
 <pre><code class="language-r"># &quot;harvard&quot; é igual a &quot;MIT&quot;?
 
-&quot;harvard&quot; == &quot;MIT&quot;
+&quot;Harvard&quot; == &quot;MIT&quot;
 </code></pre>
 
 <pre><code>## [1] FALSE
@@ -424,7 +426,7 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 
 <p>Não iremos introduzir essa ideia aqui, mas caso seja de interesse também podemos utilizar as noções de maior e menor para textos. Você teria um palpite de como um texto pode ser maior do que outro?</p>
 
-<p>Por fim, temos uma operação booleana no R para testar se um valor é <em>missing</em>. Normalmente, ao realizar a nossa coleta de dados, não conseguimos acessar determinados dados para algumas observações. De modo geral, representamos esses valores como <em>missing</em>. No R, representamos valores <em>missing</em> como NAs e para testar se um valor é NA <strong>NÃO</strong> podemos utilizar o operador <code>==</code>. Por que?</p>
+<p>Por fim, temos uma operação booleana no R para testar se um valor é <em>missing</em>. Normalmente, ao realizar a nossa coleta de dados, não conseguimos acessar os valores para algumas observações. De modo geral, representamos esses valores como <em>missing</em>. No R, representamos valores <em>missing</em> como <code>NA</code> e para testar se um valor é NA <strong>NÃO</strong> podemos utilizar o operador <code>==</code>. Por que?</p>
 
 <pre><code class="language-r">NA == NA
 </code></pre>
@@ -440,7 +442,7 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 <pre><code>## [1] TRUE
 </code></pre>
 
-<p>Para testar se um valor <strong>não</strong> é um <em>missing</em>, precisamos adicionar um <code>!</code> antes do <code>is.na()</code>.</p>
+<p>Para testar se um valor <strong>não</strong> é um <em>missing</em>, ou seja, para testar se um valor <strong>é válido</strong>, precisamos adicionar um <code>!</code> antes do <code>is.na()</code>.</p>
 
 <pre><code class="language-r">!is.na(&quot;oi&quot;)
 </code></pre>
@@ -543,25 +545,41 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 ## $ institutions                      &lt;chr&gt; &quot;MITx&quot;, &quot;MITx&quot;, &quot;MITx&quot;, &quot;Har...
 </code></pre>
 
-<p>Podemos, por exemplo, pensar na porcentagem de pessoas que participaram em pelo menos 50% do curso (<code>certified</code>/<code>participants</code>).</p>
+<p>Podemos, por exemplo, pensar na porcentagem de pessoas que participaram em pelo menos 50% do curso (<code>certified</code>/<code>participants</code>), que iremos chamar de (<code>perc_certified</code>).</p>
 
-<pre><code class="language-r">banco_4 &lt;- mutate(banco_3, 
-                  perc_certified = (certified / participants) * 100)
+<p>Primeiro, podemos criar uma variável e introduzir <code>0</code>.</p>
+
+<pre><code class="language-r">banco_4 &lt;- mutate(banco_3,
+                  perc_certified = 0)
 </code></pre>
 
-<p>Outra estatística relevante é a porcentagem de pessoas que compareceram em pelo menos 50% do curso (<code>audited</code>/<code>participants</code>).</p>
+<p>Em seguida, é possível calcular a proporção e inserir nessa nova variável.</p>
 
-<pre><code class="language-r">banco_5 &lt;- mutate(banco_4, 
+<p>Repare que no R, para dividir dois valores, utilizamos o operador <code>/</code>.</p>
+
+<pre><code class="language-r">banco_5 &lt;- mutate(banco_4,
+                  perc_certified = certified / participants)
+</code></pre>
+
+<p>Por fim, a fim de obtermos a porcentagem, multiplamos a própria variável por 100.</p>
+
+<pre><code class="language-r">banco_6 &lt;- mutate(banco_5,
+                  perc_certified = perc_certified * 100)
+</code></pre>
+
+<p>Outra estatística relevante é a porcentagem de pessoas que compareceram em pelo menos 50% do curso (<code>audited</code>/<code>participants</code>). Dessa vez, iremos criar a variável <code>perc_audited</code> em uma única operação.</p>
+
+<pre><code class="language-r">banco_7 &lt;- mutate(banco_6, 
                   perc_audited   = (audited / participants) * 100)
 </code></pre>
 
 <p>Por fim, podemos pensar na quantidade de pessoas que ganharam certificado (<code>certified</code>) entre as que participaram em pelo menos 50% do curso (<code>audited</code>).</p>
 
-<pre><code class="language-r">banco_6 &lt;- mutate(banco_5,
+<pre><code class="language-r">banco_8 &lt;- mutate(banco_7,
                   perc_cert_aud  = (certified / audited) * 100)
 </code></pre>
 
-<pre><code class="language-r">glimpse(banco_6)
+<pre><code class="language-r">glimpse(banco_8)
 </code></pre>
 
 <pre><code>## Observations: 290
@@ -592,7 +610,46 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 ## $ perc_cert_aud                     &lt;dbl&gt; 55.29368, 64.62175, 72.92469...
 </code></pre>
 
-<h3 id="verboas-para-análise-de-dados">Verboas para Análise de Dados</h3>
+<h3 id="rename"><code>rename</code></h3>
+
+<p>A função <code>rename</code> tem como objetivo alterar os <strong>nomes</strong> das nossas variáveis. Digamos, por exemplo, que você queira traduzir as variáveis para o português. Uma possibilidade é alterar o nome da variável <code>course_title</code> para título curso.</p>
+
+<pre><code class="language-r">banco_9 &lt;- rename(banco_8,
+                  TITULO_CURSO = course_title)
+</code></pre>
+
+<pre><code class="language-r">glimpse(banco_9)
+</code></pre>
+
+<pre><code>## Observations: 290
+## Variables: 24
+## $ course_number                     &lt;chr&gt; &quot;6.002x&quot;, &quot;6.00x&quot;, &quot;3.091x&quot;,...
+## $ launch_month                      &lt;int&gt; 9, 9, 10, 10, 10, 2, 2, 2, 2...
+## $ launch_day                        &lt;int&gt; 5, 26, 9, 15, 15, 4, 5, 12, ...
+## $ TITULO_CURSO                      &lt;chr&gt; &quot;Circuits and Electronics&quot;, ...
+## $ instructors                       &lt;chr&gt; &quot;Khurram Afridi&quot;, &quot;Eric Grim...
+## $ course_subject                    &lt;chr&gt; &quot;Science, Technology, Engine...
+## $ honor_code_certificates           &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+## $ participants                      &lt;int&gt; 36105, 62709, 16663, 129400,...
+## $ audited                           &lt;int&gt; 5431, 8949, 2855, 12888, 107...
+## $ certified                         &lt;int&gt; 3003, 5783, 2082, 1439, 5058...
+## $ percent_played_video              &lt;dbl&gt; 83.20, 89.14, 87.49, 0.00, 7...
+## $ percent_posted_forum              &lt;dbl&gt; 8.17, 14.38, 14.42, 0.00, 15...
+## $ percent_grade_higher_than_zero    &lt;dbl&gt; 28.97, 39.50, 34.89, 1.11, 3...
+## $ total_course_hours_per_1000       &lt;dbl&gt; 418.94, 884.04, 227.55, 220....
+## $ median_hours_for_certification    &lt;dbl&gt; 64.45, 78.53, 61.28, 0.00, 7...
+## $ median_age                        &lt;dbl&gt; 26, 28, 27, 28, 32, 27, 27, ...
+## $ percent_male                      &lt;dbl&gt; 88.28, 83.50, 70.32, 80.02, ...
+## $ percent_female                    &lt;dbl&gt; 11.72, 16.50, 29.68, 19.98, ...
+## $ percent_bachelor_degree_or_higher &lt;dbl&gt; 60.68, 63.04, 58.76, 58.78, ...
+## $ year                              &lt;chr&gt; &quot;2012&quot;, &quot;2012&quot;, &quot;2012&quot;, &quot;201...
+## $ institutions                      &lt;chr&gt; &quot;MITx&quot;, &quot;MITx&quot;, &quot;MITx&quot;, &quot;Har...
+## $ perc_certified                    &lt;dbl&gt; 8.317408, 9.221962, 12.49474...
+## $ perc_audited                      &lt;dbl&gt; 15.042238, 14.270679, 17.133...
+## $ perc_cert_aud                     &lt;dbl&gt; 55.29368, 64.62175, 72.92469...
+</code></pre>
+
+<h3 id="verbos-para-análise-de-dados">Verbos para Análise de Dados</h3>
 
 <p>Além de transformações com objetivo de <strong>recodificar</strong> variáveis, o <code>dplyr</code> oferece funções para análises do nosso banco.</p>
 
@@ -602,7 +659,7 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 
 <p>Para isso, precisamos utilizar duas funções: <code>group_by()</code> e <code>summarise()</code>. Essas funções, em conjunto, são poderosíssimas para análise exploratória dos nossos dados. Vamos começar pela <code>summarise()</code>.</p>
 
-<pre><code class="language-r">summarise(banco_6, MEDIA = mean(perc_certified))
+<pre><code class="language-r">summarise(banco_9, MEDIA = mean(perc_certified))
 </code></pre>
 
 <pre><code>## # A tibble: 1 x 1
@@ -613,9 +670,9 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 
 <p>No último comando, descobrimos que 7,7% é a média de certificados &ldquo;emitidos&rdquo; por curso. O cálculo dessa média foi realizado para TODAS as observações do nosso banco. Agora, como fariámos para calcular a média de certicidados emitidos por instituição? Para isso, precisamos utilizar uma função <code>group_by()</code> <strong>antes</strong>.</p>
 
-<pre><code class="language-r">banco_6 %&gt;% 
-  group_by(institutions) %&gt;% 
-  summarise(CERTIFICADOS = mean(perc_certified))
+<pre><code class="language-r">temp_1 &lt;- group_by(banco_9, institutions)
+
+summarise(temp_1, CERTIFICADOS = mean(perc_certified))
 </code></pre>
 
 <pre><code>## # A tibble: 2 x 2
@@ -627,21 +684,21 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 
 <p>Percebe como <code>group_by()</code> e <code>summarise()</code> em conjunto são ferramentas poderosas? Podemos repetir o processo para as outras variáveis.</p>
 
-<pre><code class="language-r">banco_6 %&gt;% 
-  group_by(institutions) %&gt;% 
-  summarise(PARICIPARAM_50 = mean(perc_audited))
+<pre><code class="language-r">temp_2 &lt;- group_by(banco_9, institutions)
+
+summarise(temp_2, PARTICIPARAM_50 = mean(perc_audited))
 </code></pre>
 
 <pre><code>## # A tibble: 2 x 2
-##   institutions PARICIPARAM_50
-##   &lt;chr&gt;                 &lt;dbl&gt;
-## 1 HarvardX               31.9
-## 2 MITx                   19.3
+##   institutions PARTICIPARAM_50
+##   &lt;chr&gt;                  &lt;dbl&gt;
+## 1 HarvardX                31.9
+## 2 MITx                    19.3
 </code></pre>
 
-<pre><code class="language-r">banco_6 %&gt;% 
-  group_by(institutions) %&gt;% 
-  summarise(CERT_PART_50 = mean(perc_cert_aud))
+<pre><code class="language-r">temp_3 &lt;- group_by(banco_9, institutions)
+
+summarise(temp_3, CERT_PART_50 = mean(perc_cert_aud))
 </code></pre>
 
 <pre><code>## # A tibble: 2 x 2
@@ -651,29 +708,31 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 ## 2 MITx                 29.9
 </code></pre>
 
-<p>A fim de tornar o nosso trablho mais eficiente, podemos calcular mais de uma estatística dentro de <code>summarise()</code>. Logo, ao invés de calcular cada média individualmente, podemos calcular todas de uma vez.</p>
+<p>A fim de tornar o nosso trabalho mais eficiente, podemos calcular mais de uma estatística dentro de <code>summarise()</code>. Logo, ao invés de calcular cada média individualmente, podemos calcular todas de uma vez.</p>
 
-<pre><code class="language-r">banco_6 %&gt;% 
-  group_by(institutions) %&gt;% 
-  summarise(CERTIFICADOS   = mean(perc_certified),
-            PARICIPARAM_50 = mean(perc_audited),
-            CERT_PART_50   = mean(perc_cert_aud))
+<pre><code class="language-r">temp_4 &lt;- group_by(banco_9, institutions)
+
+summarise(temp_4,
+          CERTIFICADOS    = mean(perc_certified),
+          PARTICIPARAM_50 = mean(perc_audited),
+          CERT_PART_50    = mean(perc_cert_aud))
 </code></pre>
 
 <pre><code>## # A tibble: 2 x 4
-##   institutions CERTIFICADOS PARICIPARAM_50 CERT_PART_50
-##   &lt;chr&gt;               &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
-## 1 HarvardX            10.9            31.9         35.2
-## 2 MITx                 5.25           19.3         29.9
+##   institutions CERTIFICADOS PARTICIPARAM_50 CERT_PART_50
+##   &lt;chr&gt;               &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;
+## 1 HarvardX            10.9             31.9         35.2
+## 2 MITx                 5.25            19.3         29.9
 </code></pre>
 
-<p>Além de realizar mais de um cálculo por vez, também é possível adicionar mais de uma variável para o <code>group_by()</code>. Ao fazer isso, você irá trabalhar com a combinação das duas variáveis, ou seja, çaso selecionemos uma variável com <strong>3</strong> categorias e uma segunda com <strong>4</strong>, teremos no final <strong>12</strong> (3 x 4) categorias.</p>
+<p>Além de realizar mais de um cálculo por vez, também é possível adicionar mais de uma variável para o <code>group_by()</code>. Ao fazer isso, você irá trabalhar com a combinação das duas variáveis, ou seja, caso selecionemos uma variável com <strong>3</strong> categorias e uma segunda com <strong>4</strong>, teremos no final <strong>12</strong> (3 x 4) categorias.</p>
 
 <p>Como exemplo, vamos pensar a porcentagem de certificados emitidos por ano (<code>perc_certified</code>) e por instituição (<code>institutions</code>).</p>
 
-<pre><code class="language-r">banco_6 %&gt;% 
-  group_by(year, institutions) %&gt;% 
-  summarise(CERTIFICADOS = mean(perc_certified))
+<pre><code class="language-r">temp_5 &lt;- group_by(banco_9,
+                   year, institutions)
+
+summarise(temp_5, CERTIFICADOS = mean(perc_certified))
 </code></pre>
 
 <pre><code>## # A tibble: 10 x 3
@@ -696,8 +755,9 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 
 <p>Com a função <code>count()</code> podemos contar as categorias presentes dentro de uma variável.</p>
 
-<pre><code class="language-r">banco_6 %&gt;% 
-  count(institutions)
+<p>Por exemplo, quantos cursos são oferecidos por cada instituição de ensino (<code>institutions</code>).</p>
+
+<pre><code class="language-r">count(banco_9, institutions)
 </code></pre>
 
 <pre><code>## # A tibble: 2 x 2
@@ -707,8 +767,9 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 ## 2 MITx           161
 </code></pre>
 
-<pre><code class="language-r">banco_6 %&gt;% 
-  count(course_subject)
+<p>Outro exemplo que pode ser interessante é pensar o tema dos cursos oferecidos (<code>course_subject</code>).</p>
+
+<pre><code class="language-r">count(banco_9, course_subject)
 </code></pre>
 
 <pre><code>## # A tibble: 4 x 2
@@ -722,8 +783,8 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 
 <p>Também é possível, por exemplo, fornecer mais de uma variável para <code>count()</code>. Isso fará com que ela calcule a quantidade de observações presentes para as <strong>combinações</strong> de categorias.</p>
 
-<pre><code class="language-r">banco_6 %&gt;% 
-  count(institutions, course_subject)
+<pre><code class="language-r">count(banco_9, 
+      institutions, course_subject)
 </code></pre>
 
 <pre><code>## # A tibble: 8 x 3
@@ -742,6 +803,8 @@ banco_1 &lt;- read_csv('../data/w2/w2_01_use.csv') # Não se esqueça de alterar
 <h2 id="exercício">Exercício</h2>
 
 <ol>
+<li><p>Calcule a quantidade de cursos por ano e por instituição?</p></li>
+
 <li><p>Investigue quais os temas de curso (<code>course_subject</code>) mais recorrentes para cada instituição (<code>institutions</code>).</p></li>
 
 <li><p>Investigue a distribuição de gênero (<code>percent_female</code> e <code>percent_male</code>).</p>
