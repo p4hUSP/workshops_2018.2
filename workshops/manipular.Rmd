@@ -344,3 +344,61 @@ count(banco_9,
     + 2.3. Qual seria uma possível origem da diferença da proporção de mulheres entre os cursos oferecidos pela HarvardX e a MITx? (Dica: tente pensar nos cursos oferecidos por cada instituição)
     
 4. Quais são os meses em que mais cursos são oferecidos?
+
+
+## Gabarito
+
+1. Calcule a quantidade de cursos por ano e por instituição?
+
+Podemos responder essas perguntas de diversas formas, vamos apresentar algumas:
+
+```{r}
+count(banco_9, year, institutions)
+```
+
+```{r}
+temp_5 <- group_by(banco_9, year, institutions)
+
+summarise(temp_5, contagem = n())
+```
+
+2. Investigue quais os temas de curso (`course_subject`) mais recorrentes para cada instituição (`institutions`).
+
+```{r}
+count(banco_9, institutions, course_subject)
+```
+
+```{r}
+temp_6 <- group_by(banco_9, institutions, course_subject)
+
+summarise(temp_6, contagegem = n())
+```
+
+3. Investigue a distribuição de gênero (`percent_female` e `percent_male`).
+
+    + 2.1. Para cada instituição (`institutions`). 
+    
+```{r}
+temp_7 <- group_by(banco_9, institutions)
+
+summarise(temp_7, mean_female = mean(percent_female),
+          mean_male = mean(percent_male))
+```
+
+    + 2.2. Para cada tema de curso (`course_subject`)
+    
+```{r}
+temp_8 <- group_by(banco_9, course_subject)
+
+summarise(temp_8, mean_female = mean(percent_female),
+          mean_male = mean(percent_male))
+```
+
+    + 2.3. Qual seria uma possível origem da diferença da proporção de mulheres entre os cursos oferecidos pela HarvardX e a MITx? (Dica: tente pensar nos cursos oferecidos por cada instituição)
+    
+4. Quais são os meses em que mais cursos são oferecidos?
+
+```{r}
+count(banco_9, institutions, launch_month)
+```
+
