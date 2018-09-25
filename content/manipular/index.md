@@ -95,13 +95,13 @@ As funções do pacote `dplyr` podem
 
 2. `mutate`: modifica ou cria colunas de acordo com valores fornecidos.
 
-3. `select`: seleciona ou exclui colunas de um banco de dados.
-
-4. `count`: conta os valores e uma variável.
+3. `count`: conta os valores e uma variável.
 
     + Especialmente útil para variáveis categóricas.
     
-5. `group_by` e `summarise`: são funções normalmente utilizadas em conjunto. Elas permitem realizar operações de agregações com o banco de dados e, assim, alterar a unidade de análise. 
+4. `group_by` e `summarise`: são funções normalmente utilizadas em conjunto. Elas permitem realizar operações de agregações com o banco de dados e, assim, alterar a nossa unidade de análise. 
+
+5. `rename`: altera o nome das variáveis (colunas).
 
 ### filter
 
@@ -132,7 +132,9 @@ Independentemente disso, temos que arrumar esse problema e excluir as linhas com
 
 Valores booleanos são resultados de operações booleanas e podem ser definidos como __verdadeiros__ ou __falsos__. Por convenção, trabalhamos com os termos em inglês. Portanto, __TRUE__ ou __FALSE__.
 
-Por operações booleanas, podemos pensar em diferentes testes que tenham __necessariamente__ uma resposta ou verdadeira ou falsa. Por exemplo, 3 é maior do que 1? Verdadeiro! E 3 é menor do que 2? Falso! Vamos realizar essas duas operações no R.
+Por operações booleanas, podemos pensar em diferentes testes que tenham __necessariamente__ uma resposta ou verdadeira ou falsa. Por exemplo, 3 é maior do que 1? Verdadeiro! E 3 é menor do que 2? Falso! 
+
+Vamos realizar essas duas operações no R.
 
 
 ```r
@@ -188,7 +190,7 @@ Outras variações utilizadas são o maior ou igual (`>=`) e o menor ou igual (`
 ```r
 # "harvard" é igual a "MIT"?
 
-"harvard" == "MIT"
+"Harvard" == "MIT"
 ```
 
 ```
@@ -197,7 +199,7 @@ Outras variações utilizadas são o maior ou igual (`>=`) e o menor ou igual (`
 
 Não iremos introduzir essa ideia aqui, mas caso seja de interesse também podemos utilizar as noções de maior e menor para textos. Você teria um palpite de como um texto pode ser maior do que outro?
 
-Por fim, temos uma operação booleana no R para testar se um valor é _missing_. Normalmente, ao realizar a nossa coleta de dados, não conseguimos acessar determinados dados para algumas observações. De modo geral, representamos esses valores como _missing_. No R, representamos valores _missing_ como NAs e para testar se um valor é NA __NÃO__ podemos utilizar o operador `==`. Por que?
+Por fim, temos uma operação booleana no R para testar se um valor é _missing_. Normalmente, ao realizar a nossa coleta de dados, não conseguimos acessar os valores para algumas observações. De modo geral, representamos esses valores como _missing_. No R, representamos valores _missing_ como `NA` e para testar se um valor é NA __NÃO__ podemos utilizar o operador `==`. Por que?
 
 
 ```r
@@ -219,7 +221,7 @@ is.na(NA)
 ## [1] TRUE
 ```
 
-Para testar se um valor __não__ é um _missing_, precisamos adicionar um `!` antes do `is.na()`.
+Para testar se um valor __não__ é um _missing_, ou seja, para testar se um valor __é válido__, precisamos adicionar um `!` antes do `is.na()`.
 
 
 ```r
@@ -296,19 +298,39 @@ glimpse(banco_3)
 ## $ institutions                      <chr> "MITx", "MITx", "MITx", "Har...
 ```
 
-Podemos, por exemplo, pensar na porcentagem de pessoas que participaram em pelo menos 50% do curso (`certified`/`participants`).
+Podemos, por exemplo, pensar na porcentagem de pessoas que participaram em pelo menos 50% do curso (`certified`/`participants`), que iremos chamar de (`perc_certified`).
+
+Primeiro, podemos criar uma variável e introduzir `0`.
 
 
 ```r
-banco_4 <- mutate(banco_3, 
-                  perc_certified = (certified / participants) * 100)
+banco_4 <- mutate(banco_3,
+                  perc_certified = 0)
 ```
 
-Outra estatística relevante é a porcentagem de pessoas que compareceram em pelo menos 50% do curso (`audited`/`participants`).
+Em seguida, é possível calcular a proporção e inserir nessa nova variável.
+
+Repare que no R, para dividir dois valores, utilizamos o operador `/`.
 
 
 ```r
-banco_5 <- mutate(banco_4, 
+banco_5 <- mutate(banco_4,
+                  perc_certified = certified / participants)
+```
+
+Por fim, a fim de obtermos a porcentagem, multiplamos a própria variável por 100.
+
+
+```r
+banco_6 <- mutate(banco_5,
+                  perc_certified = perc_certified * 100)
+```
+
+Outra estatística relevante é a porcentagem de pessoas que compareceram em pelo menos 50% do curso (`audited`/`participants`). Dessa vez, iremos criar a variável `perc_audited` em uma única operação.
+
+
+```r
+banco_7 <- mutate(banco_6, 
                   perc_audited   = (audited / participants) * 100)
 ```
 
@@ -316,14 +338,14 @@ Por fim, podemos pensar na quantidade de pessoas que ganharam certificado (`cert
 
 
 ```r
-banco_6 <- mutate(banco_5,
+banco_8 <- mutate(banco_7,
                   perc_cert_aud  = (certified / audited) * 100)
 ```
 
 
 
 ```r
-glimpse(banco_6)
+glimpse(banco_8)
 ```
 
 ```
@@ -355,7 +377,51 @@ glimpse(banco_6)
 ## $ perc_cert_aud                     <dbl> 55.29368, 64.62175, 72.92469...
 ```
 
-### Verboas para Análise de Dados
+### `rename`
+
+A função `rename` tem como objetivo alterar os __nomes__ das nossas variáveis. Digamos, por exemplo, que você queira traduzir as variáveis para o português. Uma possibilidade é alterar o nome da variável `course_title` para título curso.
+
+
+```r
+banco_9 <- rename(banco_8,
+                  TITULO_CURSO = course_title)
+```
+
+
+```r
+glimpse(banco_9)
+```
+
+```
+## Observations: 290
+## Variables: 24
+## $ course_number                     <chr> "6.002x", "6.00x", "3.091x",...
+## $ launch_month                      <int> 9, 9, 10, 10, 10, 2, 2, 2, 2...
+## $ launch_day                        <int> 5, 26, 9, 15, 15, 4, 5, 12, ...
+## $ TITULO_CURSO                      <chr> "Circuits and Electronics", ...
+## $ instructors                       <chr> "Khurram Afridi", "Eric Grim...
+## $ course_subject                    <chr> "Science, Technology, Engine...
+## $ honor_code_certificates           <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+## $ participants                      <int> 36105, 62709, 16663, 129400,...
+## $ audited                           <int> 5431, 8949, 2855, 12888, 107...
+## $ certified                         <int> 3003, 5783, 2082, 1439, 5058...
+## $ percent_played_video              <dbl> 83.20, 89.14, 87.49, 0.00, 7...
+## $ percent_posted_forum              <dbl> 8.17, 14.38, 14.42, 0.00, 15...
+## $ percent_grade_higher_than_zero    <dbl> 28.97, 39.50, 34.89, 1.11, 3...
+## $ total_course_hours_per_1000       <dbl> 418.94, 884.04, 227.55, 220....
+## $ median_hours_for_certification    <dbl> 64.45, 78.53, 61.28, 0.00, 7...
+## $ median_age                        <dbl> 26, 28, 27, 28, 32, 27, 27, ...
+## $ percent_male                      <dbl> 88.28, 83.50, 70.32, 80.02, ...
+## $ percent_female                    <dbl> 11.72, 16.50, 29.68, 19.98, ...
+## $ percent_bachelor_degree_or_higher <dbl> 60.68, 63.04, 58.76, 58.78, ...
+## $ year                              <chr> "2012", "2012", "2012", "201...
+## $ institutions                      <chr> "MITx", "MITx", "MITx", "Har...
+## $ perc_certified                    <dbl> 8.317408, 9.221962, 12.49474...
+## $ perc_audited                      <dbl> 15.042238, 14.270679, 17.133...
+## $ perc_cert_aud                     <dbl> 55.29368, 64.62175, 72.92469...
+```
+
+### Verbos para Análise de Dados
 
 Além de transformações com objetivo de __recodificar__ variáveis, o `dplyr` oferece funções para análises do nosso banco. 
 
@@ -367,7 +433,7 @@ Para isso, precisamos utilizar duas funções: `group_by()` e `summarise()`. Ess
 
 
 ```r
-summarise(banco_6, MEDIA = mean(perc_certified))
+summarise(banco_9, MEDIA = mean(perc_certified))
 ```
 
 ```
@@ -381,9 +447,9 @@ No último comando, descobrimos que 7,7% é a média de certificados "emitidos" 
 
 
 ```r
-banco_6 %>% 
-  group_by(institutions) %>% 
-  summarise(CERTIFICADOS = mean(perc_certified))
+temp_1 <- group_by(banco_9, institutions)
+
+summarise(temp_1, CERTIFICADOS = mean(perc_certified))
 ```
 
 ```
@@ -398,24 +464,24 @@ Percebe como `group_by()` e `summarise()` em conjunto são ferramentas poderosas
 
 
 ```r
-banco_6 %>% 
-  group_by(institutions) %>% 
-  summarise(PARICIPARAM_50 = mean(perc_audited))
+temp_2 <- group_by(banco_9, institutions)
+
+summarise(temp_2, PARTICIPARAM_50 = mean(perc_audited))
 ```
 
 ```
 ## # A tibble: 2 x 2
-##   institutions PARICIPARAM_50
-##   <chr>                 <dbl>
-## 1 HarvardX               31.9
-## 2 MITx                   19.3
+##   institutions PARTICIPARAM_50
+##   <chr>                  <dbl>
+## 1 HarvardX                31.9
+## 2 MITx                    19.3
 ```
 
 
 ```r
-banco_6 %>% 
-  group_by(institutions) %>% 
-  summarise(CERT_PART_50 = mean(perc_cert_aud))
+temp_3 <- group_by(banco_9, institutions)
+
+summarise(temp_3, CERT_PART_50 = mean(perc_cert_aud))
 ```
 
 ```
@@ -426,34 +492,36 @@ banco_6 %>%
 ## 2 MITx                 29.9
 ```
 
-A fim de tornar o nosso trablho mais eficiente, podemos calcular mais de uma estatística dentro de `summarise()`. Logo, ao invés de calcular cada média individualmente, podemos calcular todas de uma vez.
+A fim de tornar o nosso trabalho mais eficiente, podemos calcular mais de uma estatística dentro de `summarise()`. Logo, ao invés de calcular cada média individualmente, podemos calcular todas de uma vez.
 
 
 ```r
-banco_6 %>% 
-  group_by(institutions) %>% 
-  summarise(CERTIFICADOS   = mean(perc_certified),
-            PARICIPARAM_50 = mean(perc_audited),
-            CERT_PART_50   = mean(perc_cert_aud))
+temp_4 <- group_by(banco_9, institutions)
+
+summarise(temp_4,
+          CERTIFICADOS    = mean(perc_certified),
+          PARTICIPARAM_50 = mean(perc_audited),
+          CERT_PART_50    = mean(perc_cert_aud))
 ```
 
 ```
 ## # A tibble: 2 x 4
-##   institutions CERTIFICADOS PARICIPARAM_50 CERT_PART_50
-##   <chr>               <dbl>          <dbl>        <dbl>
-## 1 HarvardX            10.9            31.9         35.2
-## 2 MITx                 5.25           19.3         29.9
+##   institutions CERTIFICADOS PARTICIPARAM_50 CERT_PART_50
+##   <chr>               <dbl>           <dbl>        <dbl>
+## 1 HarvardX            10.9             31.9         35.2
+## 2 MITx                 5.25            19.3         29.9
 ```
 
-Além de realizar mais de um cálculo por vez, também é possível adicionar mais de uma variável para o `group_by()`. Ao fazer isso, você irá trabalhar com a combinação das duas variáveis, ou seja, çaso selecionemos uma variável com __3__ categorias e uma segunda com __4__, teremos no final __12__ (3 x 4) categorias. 
+Além de realizar mais de um cálculo por vez, também é possível adicionar mais de uma variável para o `group_by()`. Ao fazer isso, você irá trabalhar com a combinação das duas variáveis, ou seja, caso selecionemos uma variável com __3__ categorias e uma segunda com __4__, teremos no final __12__ (3 x 4) categorias. 
 
 Como exemplo, vamos pensar a porcentagem de certificados emitidos por ano (`perc_certified`) e por instituição (`institutions`).
 
 
 ```r
-banco_6 %>% 
-  group_by(year, institutions) %>% 
-  summarise(CERTIFICADOS = mean(perc_certified))
+temp_5 <- group_by(banco_9,
+                   year, institutions)
+
+summarise(temp_5, CERTIFICADOS = mean(perc_certified))
 ```
 
 ```
@@ -477,10 +545,11 @@ banco_6 %>%
 
 Com a função `count()` podemos contar as categorias presentes dentro de uma variável.
 
+Por exemplo, quantos cursos são oferecidos por cada instituição de ensino (`institutions`).
+
 
 ```r
-banco_6 %>% 
-  count(institutions)
+count(banco_9, institutions)
 ```
 
 ```
@@ -491,10 +560,11 @@ banco_6 %>%
 ## 2 MITx           161
 ```
 
+Outro exemplo que pode ser interessante é pensar o tema dos cursos oferecidos (`course_subject`).
+
 
 ```r
-banco_6 %>% 
-  count(course_subject)
+count(banco_9, course_subject)
 ```
 
 ```
@@ -511,8 +581,8 @@ Também é possível, por exemplo, fornecer mais de uma variável para `count()`
 
 
 ```r
-banco_6 %>% 
-  count(institutions, course_subject)
+count(banco_9, 
+      institutions, course_subject)
 ```
 
 ```
@@ -529,12 +599,13 @@ banco_6 %>%
 ## 8 MITx         Science, Technology, Engineering, and Mathematics       83
 ```
 
-
 ## Exercício
 
-1. Investigue quais os temas de curso (`course_subject`) mais recorrentes para cada instituição (`institutions`).
+1. Calcule a quantidade de cursos por ano e por instituição?
 
-2. Investigue a distribuição de gênero (`percent_female` e `percent_male`).
+2. Investigue quais os temas de curso (`course_subject`) mais recorrentes para cada instituição (`institutions`).
+
+3. Investigue a distribuição de gênero (`percent_female` e `percent_male`).
 
     + 2.1. Para cada instituição (`institutions`). 
     
@@ -542,4 +613,4 @@ banco_6 %>%
     
     + 2.3. Qual seria uma possível origem da diferença da proporção de mulheres entre os cursos oferecidos pela HarvardX e a MITx? (Dica: tente pensar nos cursos oferecidos por cada instituição)
     
-3. Quais são os meses em que mais cursos são oferecidos?
+4. Quais são os meses em que mais cursos são oferecidos?
