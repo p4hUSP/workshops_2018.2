@@ -337,11 +337,11 @@ count(banco_9,
 
 3. Investigue a distribuição de gênero (`percent_female` e `percent_male`).
 
-    + 2.1. Para cada instituição (`institutions`). 
+    + 3.1. Para cada instituição (`institutions`). 
     
-    + 2.2. Para cada tema de curso (`course_subject`)
+    + 3.2. Para cada tema de curso (`course_subject`)
     
-    + 2.3. Qual seria uma possível origem da diferença da proporção de mulheres entre os cursos oferecidos pela HarvardX e a MITx? (Dica: tente pensar nos cursos oferecidos por cada instituição)
+    + 3.3. Qual seria uma possível origem da diferença da proporção de mulheres entre os cursos oferecidos pela HarvardX e a MITx? (Dica: tente pensar nos cursos oferecidos por cada instituição)
     
 4. Quais são os meses em que mais cursos são oferecidos?
 
@@ -376,29 +376,34 @@ summarise(temp_6, contagegem = n())
 
 3. Investigue a distribuição de gênero (`percent_female` e `percent_male`).
 
-    + 2.1. Para cada instituição (`institutions`). 
+    + 3.1. Para cada instituição (`institutions`). 
     
 ```{r}
 temp_7 <- group_by(banco_9, institutions)
 
-summarise(temp_7, mean_female = mean(percent_female),
-          mean_male = mean(percent_male))
+summarise(temp_7, 
+          mean_female = mean(percent_female),
+          mean_male   = mean(percent_male))
 ```
 
-    + 2.2. Para cada tema de curso (`course_subject`)
+    + 3.2. Para cada tema de curso (`course_subject`)
     
 ```{r}
 temp_8 <- group_by(banco_9, course_subject)
 
-summarise(temp_8, mean_female = mean(percent_female),
-          mean_male = mean(percent_male))
+summarise(temp_8,
+          mean_female = mean(percent_female),
+          mean_male   = mean(percent_male))
 ```
 
-    + 2.3. Qual seria uma possível origem da diferença da proporção de mulheres entre os cursos oferecidos pela HarvardX e a MITx? (Dica: tente pensar nos cursos oferecidos por cada instituição)
+    + 3.3. Qual seria uma possível origem da diferença da proporção de mulheres entre os cursos oferecidos pela HarvardX e a MITx? (Dica: tente pensar nos cursos oferecidos por cada instituição)
     
+Uma possível causa da diferença na proporção de mulheres entre HarvardX e MITx __pode__ ser o tema do curso (`course_subject`). A hipótese é de que mulheres são menos incentivadas a participar de cursos ligados à área de tecnologia, engenharia e matemática.
+
 4. Quais são os meses em que mais cursos são oferecidos?
 
 ```{r}
-count(banco_9, institutions, launch_month)
+count(banco_9,
+      institutions, launch_month)
 ```
 
