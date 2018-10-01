@@ -345,7 +345,6 @@ count(banco_9,
     
 4. Quais são os meses em que mais cursos são oferecidos?
 
-
 ## Gabarito
 
 1. Calcule a quantidade de cursos por ano e por instituição?
@@ -407,3 +406,8 @@ count(banco_9,
       institutions, launch_month)
 ```
 
+## Referências
+
+GROLEMUND, Garrett. Hands-On Programming with R: Write Your Own Functions and Simulations (2014)
+
+WICKHAM, Hadley and GROLEMUND, Garrett. R for Data Science (2016)

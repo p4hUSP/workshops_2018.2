@@ -34,3 +34,11 @@ Para instalar o RStudio, interface de desenvolvimento (IDE) na qual realizamos n
 Aprender uma linguagem de programação pode ser uma tarefa bastate difícil. No começo, é muito comum errarmos coisas bobas e ficar bons minutos não entendendo porque o nosso código não funciona. Ainda assim, não desista! Com o tempo você ganhará fluência no R e tudo ficará mais fácil!
   
 Por fim, não se esqueçam do principal, programar deve ser uma coisa __divertida__!
+
+## Referências
+
+- [R 4 Data Science](http://r4ds.had.co.nz/)
+
+- Grolemund, Garret. Hands-On Programming with R
+
+- [DataCamp](https://www.datacamp.com/)

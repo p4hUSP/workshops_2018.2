@@ -607,10 +607,181 @@ count(banco_9,
 
 3. Investigue a distribuição de gênero (`percent_female` e `percent_male`).
 
-    + 2.1. Para cada instituição (`institutions`). 
+    + 3.1. Para cada instituição (`institutions`). 
     
-    + 2.2. Para cada tema de curso (`course_subject`)
+    + 3.2. Para cada tema de curso (`course_subject`)
     
-    + 2.3. Qual seria uma possível origem da diferença da proporção de mulheres entre os cursos oferecidos pela HarvardX e a MITx? (Dica: tente pensar nos cursos oferecidos por cada instituição)
+    + 3.3. Qual seria uma possível origem da diferença da proporção de mulheres entre os cursos oferecidos pela HarvardX e a MITx? (Dica: tente pensar nos cursos oferecidos por cada instituição)
     
 4. Quais são os meses em que mais cursos são oferecidos?
+
+## Gabarito
+
+1. Calcule a quantidade de cursos por ano e por instituição?
+
+Podemos responder essas perguntas de diversas formas, vamos apresentar algumas:
+
+
+```r
+count(banco_9, year, institutions)
+```
+
+```
+## # A tibble: 10 x 3
+##    year  institutions     n
+##    <chr> <chr>        <int>
+##  1 2012  HarvardX         2
+##  2 2012  MITx             3
+##  3 2013  HarvardX        10
+##  4 2013  MITx            17
+##  5 2014  HarvardX        34
+##  6 2014  MITx            33
+##  7 2015  HarvardX        58
+##  8 2015  MITx            64
+##  9 2016  HarvardX        25
+## 10 2016  MITx            44
+```
+
+
+```r
+temp_5 <- group_by(banco_9, year, institutions)
+
+summarise(temp_5, contagem = n())
+```
+
+```
+## # A tibble: 10 x 3
+## # Groups:   year [?]
+##    year  institutions contagem
+##    <chr> <chr>           <int>
+##  1 2012  HarvardX            2
+##  2 2012  MITx                3
+##  3 2013  HarvardX           10
+##  4 2013  MITx               17
+##  5 2014  HarvardX           34
+##  6 2014  MITx               33
+##  7 2015  HarvardX           58
+##  8 2015  MITx               64
+##  9 2016  HarvardX           25
+## 10 2016  MITx               44
+```
+
+2. Investigue quais os temas de curso (`course_subject`) mais recorrentes para cada instituição (`institutions`).
+
+
+```r
+count(banco_9, institutions, course_subject)
+```
+
+```
+## # A tibble: 8 x 3
+##   institutions course_subject                                           n
+##   <chr>        <chr>                                                <int>
+## 1 HarvardX     Computer Science                                         4
+## 2 HarvardX     Government, Health, and Social Science                  37
+## 3 HarvardX     Humanities, History, Design, Religion, and Education    80
+## 4 HarvardX     Science, Technology, Engineering, and Mathematics        8
+## 5 MITx         Computer Science                                        26
+## 6 MITx         Government, Health, and Social Science                  38
+## 7 MITx         Humanities, History, Design, Religion, and Education    14
+## 8 MITx         Science, Technology, Engineering, and Mathematics       83
+```
+
+
+```r
+temp_6 <- group_by(banco_9, institutions, course_subject)
+
+summarise(temp_6, contagegem = n())
+```
+
+```
+## # A tibble: 8 x 3
+## # Groups:   institutions [?]
+##   institutions course_subject                                   contagegem
+##   <chr>        <chr>                                                 <int>
+## 1 HarvardX     Computer Science                                          4
+## 2 HarvardX     Government, Health, and Social Science                   37
+## 3 HarvardX     Humanities, History, Design, Religion, and Educ…         80
+## 4 HarvardX     Science, Technology, Engineering, and Mathemati…          8
+## 5 MITx         Computer Science                                         26
+## 6 MITx         Government, Health, and Social Science                   38
+## 7 MITx         Humanities, History, Design, Religion, and Educ…         14
+## 8 MITx         Science, Technology, Engineering, and Mathemati…         83
+```
+
+3. Investigue a distribuição de gênero (`percent_female` e `percent_male`).
+
+    + 3.1. Para cada instituição (`institutions`). 
+    
+
+```r
+temp_7 <- group_by(banco_9, institutions)
+
+summarise(temp_7, 
+          mean_female = mean(percent_female),
+          mean_male   = mean(percent_male))
+```
+
+```
+## # A tibble: 2 x 3
+##   institutions mean_female mean_male
+##   <chr>              <dbl>     <dbl>
+## 1 HarvardX            44.6      55.4
+## 2 MITx                23.7      76.3
+```
+
+    + 3.2. Para cada tema de curso (`course_subject`)
+    
+
+```r
+temp_8 <- group_by(banco_9, course_subject)
+
+summarise(temp_8,
+          mean_female = mean(percent_female),
+          mean_male   = mean(percent_male))
+```
+
+```
+## # A tibble: 4 x 3
+##   course_subject                                     mean_female mean_male
+##   <chr>                                                    <dbl>     <dbl>
+## 1 Computer Science                                          17.5      82.5
+## 2 Government, Health, and Social Science                    36.0      64.0
+## 3 Humanities, History, Design, Religion, and Educat…        46.5      53.5
+## 4 Science, Technology, Engineering, and Mathematics         21.6      78.4
+```
+
+    + 3.3. Qual seria uma possível origem da diferença da proporção de mulheres entre os cursos oferecidos pela HarvardX e a MITx? (Dica: tente pensar nos cursos oferecidos por cada instituição)
+    
+Uma possível causa da diferença na proporção de mulheres entre HarvardX e MITx __pode__ ser o tema do curso (`course_subject`). A hipótese é de que mulheres são menos incentivadas a participar de cursos ligados à área de tecnologia, engenharia e matemática.
+
+4. Quais são os meses em que mais cursos são oferecidos?
+
+
+```r
+count(banco_9,
+      institutions, launch_month)
+```
+
+```
+## # A tibble: 24 x 3
+##    institutions launch_month     n
+##    <chr>               <int> <int>
+##  1 HarvardX                1    16
+##  2 HarvardX                2    10
+##  3 HarvardX                3    13
+##  4 HarvardX                4    13
+##  5 HarvardX                5     8
+##  6 HarvardX                6     5
+##  7 HarvardX                7     4
+##  8 HarvardX                8     1
+##  9 HarvardX                9    21
+## 10 HarvardX               10    25
+## # ... with 14 more rows
+```
+
+## Referências
+
+GROLEMUND, Garrett. Hands-On Programming with R: Write Your Own Functions and Simulations (2014)
+
+WICKHAM, Hadley and GROLEMUND, Garrett. R for Data Science (2016)
