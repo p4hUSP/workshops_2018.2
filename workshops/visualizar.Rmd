@@ -8,7 +8,7 @@ output: html_document
 As visualizações gráficas são muito importantes para transmitir informações. Podemos dizer até que ela é fundamental para análise de dados, nos ajudando a responder questões, tomar decisões, contar histórias e até mesmo inspirar. Veremos como fazer criar essas visualizações utilizando dados do Spotify sobre a melhor banda do mundo:
 
 ```{r}
-knitr::include_graphics("img/w3_01.jpeg")
+knitr::include_graphics("https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w3_01.jpeg")
 ```
 
 Isso mesmo, os Beatles! Você pode até se perguntar se tem algum motivo especial para ser essa banda, não é mesmo? A resposta é que eles são demais por isso merecem a nossa atenção.
@@ -22,7 +22,7 @@ library(tidyverse)
 Quando habilitamos o `tidyverse`, outros pacotes são habilitados também, entre eles, o `readr` (para importar os dados), o `dplyr` (para manipular os dados) e o `ggplot2` (para visualizar os dados). O foco desse workshop é utilizar o pacote para visualização chamado `ggplot2`, mas antes precisamos importar e manipular os dados.
 
 ```{r}
-data <- read_csv("data/beatles.csv")
+data <- read_csv("https://raw.githubusercontent.com/p4hUSP/workshops_2018.2/master/data/w3/beatles.csv")
 ```
 
 Vamos utilizar a função `glimpse()` para ver a estrutura do nosso banco de dados
@@ -93,7 +93,7 @@ g. Theme - Controle e modificação de aparência de tudo que não diz respeito 
 h. Scales - Para cada Aesthetics, descreve como a característica visual é convertida em valores, como por exemplo, escala por tamanho, cor e etc.
 
 ```{r}
-knitr::include_graphics("img/w3_03.png")
+knitr::include_graphics("https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w3_03.png")
 ```
 
 
