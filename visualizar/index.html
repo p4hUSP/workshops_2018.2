@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="pt-br">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>visualizacao de Dados - Workshop P4H</title>
+    <meta name="generator" content="Hugo 0.22" />
+
+    
+    <meta name="description" content="Material para Workshop P4H">
+    
+    <link rel="canonical" href="../visualizar/">
+    
+    <meta name="author" content="P4H">
+    
+
+    <meta property="og:url" content="/visualizar/">
+    <meta property="og:title" content="Workshop P4H">
+    <meta property="og:image" content="/logo_r4sc.jpg">
+    <meta name="apple-mobile-web-app-title" content="Workshop P4H">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../stylesheets/icons.css">
+    <link rel="stylesheet" href="../stylesheets/application.css">
+    <link rel="stylesheet" href="../stylesheets/temporary.css">
+    <link rel="stylesheet" href="../stylesheets/palettes.css">
+    <link rel="stylesheet" href="../stylesheets/prism.css">
+
+    <link rel="stylesheet" href="../stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="../javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        visualizacao de Dados
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/p4hUSP" title="@p4hUSP on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="../" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="../logo_r4sc.jpg">
+        </div>
+      
+      <div class="name">
+        <strong>Workshop P4H </strong>
+        
+          <br>
+          p4hUSP/workshops_2018.2
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/p4hUSP/workshops_2018.2/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/p4hUSP/workshops_2018.2/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Importar" href="../importar/">
+	
+	Importar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Manipular" href="../manipular/">
+	
+	Manipular
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Visualizar" href="../visualizar/">
+	
+	Visualizar
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">Contatos</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/p4hUSP" target="_blank" title="@p4hUSP no GitHub">
+              @p4hUSP no GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://facebook.com/p4hUSP" target="_blank" title="@p4hUSP on Facebook">
+              @p4hUSP no Facebook
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://p4husp.herokuapp.com" target="_blank" title="@p4hUSP on Slack">
+              @p4hUSP on Slack
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:p4husp@gmail.com" title="Nosso E-Email p4husp@gmail.com">
+              Envie um E-Mail
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>visualizacao de Dados </h1>
+
+			
+
+<h2 id="introdução">Introdução</h2>
+
+<p>As visualizações gráficas são muito importantes para transmitir informações. Podemos dizer até que ela é fundamental para análise de dados, nos ajudando a responder questões, tomar decisões, contar histórias e até mesmo inspirar. Veremos como fazer criar essas visualizações utilizando dados do Spotify sobre a melhor banda do mundo:</p>
+
+<pre><code class="language-r">knitr::include_graphics(&quot;https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w3_01.jpeg&quot;)
+</code></pre>
+
+<p><img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w3_01.jpeg" alt="plot of chunk unnamed-chunk-1" /></p>
+
+<p>Isso mesmo, os Beatles! Você pode até se perguntar se tem algum motivo especial para ser essa banda, não é mesmo? A resposta é que eles são demais por isso merecem a nossa atenção.</p>
+
+<p>Vamos ao que interessa! Primeiro nós precisamos habilitar as bibliotecas que utilizaremos hoje:</p>
+
+<pre><code class="language-r">library(tidyverse)
+</code></pre>
+
+<p>Quando habilitamos o <code>tidyverse</code>, outros pacotes são habilitados também, entre eles, o <code>readr</code> (para importar os dados), o <code>dplyr</code> (para manipular os dados) e o <code>ggplot2</code> (para visualizar os dados). O foco desse workshop é utilizar o pacote para visualização chamado <code>ggplot2</code>, mas antes precisamos importar e manipular os dados.</p>
+
+<pre><code class="language-r">data &lt;- read_csv(&quot;https://raw.githubusercontent.com/p4hUSP/workshops_2018.2/master/data/w3/beatles.csv&quot;)
+</code></pre>
+
+<pre><code>## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   is_collaboration = col_logical(),
+##   album_release_date = col_date(format = &quot;&quot;),
+##   album_release_year = col_date(format = &quot;&quot;),
+##   album_popularity = col_integer(),
+##   track_number = col_integer(),
+##   disc_number = col_integer(),
+##   danceability = col_double(),
+##   energy = col_double(),
+##   loudness = col_double(),
+##   speechiness = col_double(),
+##   acousticness = col_double(),
+##   instrumentalness = col_double(),
+##   liveness = col_double(),
+##   valence = col_double(),
+##   tempo = col_double(),
+##   duration_ms = col_double(),
+##   time_signature = col_integer(),
+##   track_popularity = col_integer(),
+##   year = col_integer()
+## )
+</code></pre>
+
+<pre><code>## See spec(...) for full column specifications.
+</code></pre>
+
+<p>Vamos utilizar a função <code>glimpse()</code> para ver a estrutura do nosso banco de dados</p>
+
+<pre><code class="language-r">glimpse(data)
+</code></pre>
+
+<pre><code>## Observations: 169
+## Variables: 32
+## $ artist_name            &lt;chr&gt; &quot;The Beatles&quot;, &quot;The Beatles&quot;, &quot;The Beat...
+## $ artist_uri             &lt;chr&gt; &quot;3WrFJ7ztbogyGnTHbHJFl2&quot;, &quot;3WrFJ7ztbogy...
+## $ album_uri              &lt;chr&gt; &quot;0ETFjACtuP2ADo6LFhL6HN&quot;, &quot;0ETFjACtuP2A...
+## $ album_name             &lt;chr&gt; &quot;Abbey Road&quot;, &quot;Abbey Road&quot;, &quot;Abbey Road...
+## $ album_img              &lt;chr&gt; &quot;https://i.scdn.co/image/a70b5fec5600e9...
+## $ album_type             &lt;chr&gt; &quot;album&quot;, &quot;album&quot;, &quot;album&quot;, &quot;album&quot;, &quot;al...
+## $ is_collaboration       &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALS...
+## $ album_release_date     &lt;date&gt; 1969-09-26, 1969-09-26, 1969-09-26, 19...
+## $ album_release_year     &lt;date&gt; 1969-09-26, 1969-09-26, 1969-09-26, 19...
+## $ album_popularity       &lt;int&gt; 79, 79, 79, 79, 79, 79, 79, 79, 79, 79,...
+## $ track_name             &lt;chr&gt; &quot;Come Together - Remastered 2009&quot;, &quot;Som...
+## $ track_uri              &lt;chr&gt; &quot;2EqlS6tkEnglzr7tkKAAYD&quot;, &quot;0pNeVovbiZHk...
+## $ track_number           &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, ...
+## $ disc_number            &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+## $ danceability           &lt;dbl&gt; 0.533, 0.396, 0.764, 0.422, 0.626, 0.37...
+## $ energy                 &lt;dbl&gt; 0.376, 0.338, 0.426, 0.656, 0.512, 0.51...
+## $ key                    &lt;chr&gt; &quot;A&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;C#&quot;, &quot;D&quot;, &quot;A&quot;, &quot;D&quot;...
+## $ loudness               &lt;dbl&gt; -11.913, -10.872, -11.045, -8.412, -9.1...
+## $ mode                   &lt;chr&gt; &quot;minor&quot;, &quot;major&quot;, &quot;major&quot;, &quot;major&quot;, &quot;mi...
+## $ speechiness            &lt;dbl&gt; 0.0393, 0.0304, 0.0405, 0.0397, 0.0247,...
+## $ acousticness           &lt;dbl&gt; 0.03020, 0.19800, 0.62900, 0.01260, 0.1...
+## $ instrumentalness       &lt;dbl&gt; 2.48e-01, 2.62e-06, 1.19e-04, 2.79e-02,...
+## $ liveness               &lt;dbl&gt; 0.0926, 0.1380, 0.1320, 0.2680, 0.2150,...
+## $ valence                &lt;dbl&gt; 0.187, 0.377, 0.726, 0.549, 0.730, 0.42...
+## $ tempo                  &lt;dbl&gt; 165.007, 133.522, 131.120, 173.930, 92....
+## $ duration_ms            &lt;dbl&gt; 259947, 182293, 207920, 207240, 170720,...
+## $ time_signature         &lt;int&gt; 4, 4, 4, 3, 4, 4, 4, 4, 3, 4, 4, 4, 4, ...
+## $ key_mode               &lt;chr&gt; &quot;A minor&quot;, &quot;C major&quot;, &quot;D major&quot;, &quot;E maj...
+## $ track_popularity       &lt;int&gt; 78, 68, 58, 65, 60, 61, 81, 59, 58, 56,...
+## $ track_preview_url      &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ track_open_spotify_url &lt;chr&gt; &quot;https://open.spotify.com/track/2EqlS6t...
+## $ year                   &lt;int&gt; 1969, 1969, 1969, 1969, 1969, 1969, 196...
+</code></pre>
+
+<p>Perceba que cada observação da nossa base de dados é uma música e que cada uma delas possuem métricas, como por exemplo, &ldquo;danceability&rdquo;, &ldquo;instrumentalness&rdquo; e entre outros. Para sabermos o que significa cada uma dessas informações podemos acessar este <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/">link</a>.</p>
+
+<p>Ao longo da carreira, os Beatles lançaram 13 albuns de estúdio, vamos verificar quantas músicas cada album tem.</p>
+
+<pre><code class="language-r">count(data, album_name)
+</code></pre>
+
+<pre><code>## # A tibble: 13 x 2
+##    album_name                                                      n
+##    &lt;chr&gt;                                                       &lt;int&gt;
+##  1 A Hard Days Night                                               1
+##  2 Abbey Road                                                     17
+##  3 Beatles For Sale                                               14
+##  4 Help!                                                          14
+##  5 Let It Be                                                      12
+##  6 Magical Mystery Tour                                           11
+##  7 Please Please Me                                               14
+##  8 Revolver                                                       14
+##  9 Rubber Soul                                                    14
+## 10 Sgt. Peppers Lonely Hearts Club Band (Super Deluxe Edition)     1
+## 11 The Beatles                                                    30
+## 12 With The Beatles                                               14
+## 13 Yellow Submarine                                               13
+</code></pre>
+
+<p>Percebam que dois albuns possuem apenas uma música, o &ldquo;A Hard Days Night&rdquo; e o &ldquo;Sgt. Peppers Lonely Hearts Club Band&rdquo;. Para praticarmos vamos então filtrar as observações diferentes destes albuns.</p>
+
+<pre><code class="language-r"># Filtro
+data_clean &lt;- filter(data,
+                     album_name != &quot;A Hard Days Night&quot;,
+                     album_name != &quot;Sgt. Peppers Lonely Hearts Club Band (Super Deluxe Edition)&quot;)
+# Count
+album_musicas &lt;- count(data_clean, album_name)
+
+album_musicas
+</code></pre>
+
+<pre><code>## # A tibble: 11 x 2
+##    album_name               n
+##    &lt;chr&gt;                &lt;int&gt;
+##  1 Abbey Road              17
+##  2 Beatles For Sale        14
+##  3 Help!                   14
+##  4 Let It Be               12
+##  5 Magical Mystery Tour    11
+##  6 Please Please Me        14
+##  7 Revolver                14
+##  8 Rubber Soul             14
+##  9 The Beatles             30
+## 10 With The Beatles        14
+## 11 Yellow Submarine        13
+</code></pre>
+
+<p>Qual é o album com uma maior quantidade de músicas? E o segundo? O terceiro?</p>
+
+<p>Qual é a média de &ldquo;danceability&rdquo; para cada album?</p>
+
+<pre><code class="language-r">temp1 &lt;- group_by(data_clean, album_name)
+
+dance_album &lt;- summarise(temp1, mean_danceability = mean(danceability, na.rm = T))
+
+dance_album
+</code></pre>
+
+<pre><code>## # A tibble: 11 x 2
+##    album_name           mean_danceability
+##    &lt;chr&gt;                            &lt;dbl&gt;
+##  1 Abbey Road                       0.518
+##  2 Beatles For Sale                 0.592
+##  3 Help!                            0.528
+##  4 Let It Be                        0.520
+##  5 Magical Mystery Tour             0.467
+##  6 Please Please Me                 0.548
+##  7 Revolver                         0.482
+##  8 Rubber Soul                      0.588
+##  9 The Beatles                      0.503
+## 10 With The Beatles                 0.500
+## 11 Yellow Submarine                 0.388
+</code></pre>
+
+<p>Perceba que se trocassemos a visualização das tabelas por gráficos, a resposta para estás perguntas ficariam muito mais fáceis de se responder. Para isso vamos introduzir o <code>ggplot2</code>.</p>
+
+<h1 id="ggplot2"><code>ggplot2</code></h1>
+
+<p>O ggplot2 é um pacote baseado no que se chamou Grammar of Graphics (por isso gg antes do plot2), que nada mais é do que uma estrutura (framework) para realização de gráficos, que nós também chamamos de &ldquo;plot&rdquo;. Além disso, o Grammar of Graphics tem o seguinte principio:</p>
+
+<blockquote>
+<p>Gráficos são construídos com diferentes <strong>layers</strong></p>
+</blockquote>
+
+<p>Mas o que são <strong>layers</strong>? Layers são elementos (ou componentes) gramáticais utilizados para fazer um plot. Estes componentes são importantes para determinar a representação dos dados. Como o Hadley Wickham apontou em um artigo chamado &ldquo;A layered grammar of graphics&rdquo; (2010), a associação destes layers com uma certa grámatica auxilia o usuário em atualizar e contruir gráficos com uma facilidade maior.</p>
+
+<p>Os elementos gramáticais que temos no <code>ggplot2</code> são:</p>
+
+<p>a. Data - O dado que será plotado, mapeando as variáveis de interesse.</p>
+
+<p>b. Aesthetics - A escala em que o dado será plotado, sinalizando os eixos x e y, cor, tamanho, preenchimento e etc.</p>
+
+<p>c. Geom - Estrutura que será utilizada nos seus dados, como por exemplo, gráfico de dispersão, linha, boxplot e etc.</p>
+
+<p>d. Facets - plotar multiplos grupos</p>
+
+<p>e. Stats - Transformações estatísticas</p>
+
+<p>f. Coordinates System - O espaço no qual o dado sera plotado, como por exemplo, espaço cartesiano, polar e entre outros.</p>
+
+<p>g. Theme - Controle e modificação de aparência de tudo que não diz respeito ao dado utilizado.</p>
+
+<p>h. Scales - Para cada Aesthetics, descreve como a característica visual é convertida em valores, como por exemplo, escala por tamanho, cor e etc.</p>
+
+<pre><code class="language-r">knitr::include_graphics(&quot;https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w3_03.png&quot;)
+</code></pre>
+
+<p><img src="https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w3_03.png" alt="plot of chunk unnamed-chunk-8" /></p>
+
+<p>Nós não veremos todos aqui, mas caso você tenha interesse em aprofundar o conteúdo desse workshop, o criador do pacote escreveu um livro que você pode dar uma olhada <a href="https://www.amazon.com.br/dp/B00HWUXRP6/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">aqui</a></p>
+
+<p>Ok, vamos colocar a mão na massa e fazer as nossas primeiras visualizações!</p>
+
+<h2 id="como-fazer-um-gráfico-no-ggplot2">Como fazer um gráfico no <code>ggplot2</code></h2>
+
+<p>Como você desenha um gráfico na mão? A primeira coisa que nós precisamos é um papel</p>
+
+<pre><code class="language-r">ggplot()
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" /></p>
+
+<p>Depois, nós precisamos decidir que dados iremos utilizar e quem vai ser o eixo x e o eixo y.</p>
+
+<pre><code class="language-r">ggplot(dance_album, aes(x = album_name, y = mean_danceability))
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" /></p>
+
+<p>Por fim, nós precisamos escolher qual é a melhor forma/estrutura para visualizar os dados. Neste caso seria interessante vermos um gráfico de barras.</p>
+
+<pre><code class="language-r">ggplot(dance_album, aes(x = album_name, y = mean_danceability)) +
+  geom_col()
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11" /></p>
+
+<p>Simples, não? Apesar disso, precisamos entender alguns conceitos que vimos ao montar este gráfico. O primeiro deles é que para ligarmos uma camada com a outra utilizamos o sinal <code>+</code>. Além disso, colocamos os eixos x e y dentro de uma função chamada <code>aes()</code>. Ela é uma função responsável pela propriedade visual dos objetos no gráfico, em outras palavras, ela faz o &ldquo;mapeamento&rdquo; das variáveis do nosso banco de dados para que eles possam fazer parte dos elementos visuais do gráfico.</p>
+
+<pre><code class="language-r">ggplot(dance_album, aes(x = album_name, y = mean_danceability, fill = album_name)) +
+  geom_col()
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12" /></p>
+
+<p>Perceba que o <code>fill = album_name</code> afeta o <code>geom</code> que utilizamos de acordo com a variável de interesse, mas veremos adiante que também podemos alterar um <code>geom</code> especificamente.</p>
+
+<p>Vamos ver outros <code>geom_</code>?</p>
+
+<h3 id="geom-point">geom_point()</h3>
+
+<p>Vamos começar com um dos <code>geoms</code> mais comuns para verificar a relação de duas variáveis quantitativas, o <code>geom_point()</code>. Podemos responder a seguinte pergunta: será que as músicas mais populares, são as mais dançantes?</p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = track_popularity, y = danceability)) + geom_point()
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13" /></p>
+
+<p>O <code>geom_point()</code>, assim como outros &ldquo;geoms&rdquo; pode aceitar argumentos, como por exemplo, cor dos pontos, tamanho e forma.</p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = track_popularity, y = danceability)) + geom_point(color = &quot;blue&quot;, size = 3, shape = 22)
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14" /></p>
+
+<h3 id="geom-histogram">geom_histogram()</h3>
+
+<p>Se quisermos ver a distribuição de uma variável quantitativa, podemos utilizar o <code>geom_histogram()</code>! Qual será a distribuição da variável energy?</p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = energy)) + geom_histogram(bins = 20)
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-15-1.png" alt="plot of chunk unnamed-chunk-15" /></p>
+
+<p>Lembre-se que também podemos colocar outros atribuitos estéticos!</p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = energy)) + geom_histogram(bins = 20, color = &quot;blue&quot;, fill = &quot;green&quot;)
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16" /></p>
+
+<h3 id="geom-boxplot-e-geom-violin">geom_boxplot() e geom_violin()</h3>
+
+<p>Se nós tivermos uma variável quantitativa e qualitativa, podemos utilizar o <code>geom_boxplot</code> e o <code>geom_violin</code>! Qual a distribuição do speechiness por album?</p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = album_name, y = speechiness)) + geom_boxplot(fill = &quot;#444054&quot;, color = &quot;#cc3f0c&quot;)
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17" /></p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = album_name, y = speechiness)) + geom_violin(fill = &quot;#8c1c13&quot;, alpha = 1/2)
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" /></p>
+
+<h3 id="geom-smooth">geom_smooth()</h3>
+
+<p>Vamos ajustar uma reta de um modelo de regressão linear no gráfico de dispersão que fizemos anteriormente.</p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = track_popularity, y = danceability)) + geom_point() + geom_smooth(method = &quot;lm&quot;, se = FALSE)
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-19-1.png" alt="plot of chunk unnamed-chunk-19" /></p>
+
+<p>Pelo que podemos notar, não parece ter uma relação entre popularidade de dançabilidade&hellip; Será mesmo? E se nós ajustassemos uma reta para cada album?</p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = track_popularity, y = danceability, color = album_name)) + geom_point() + geom_smooth(method = &quot;lm&quot;, se = FALSE)
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-20-1.png" alt="plot of chunk unnamed-chunk-20" /></p>
+
+<h3 id="geom-line">geom_line()</h3>
+
+<p>Se quisermos ver uma série temporal podemos utilizar o <code>geom_line</code>. Como o loudness varia ao longo das datas de lançamento dos albuns?</p>
+
+<pre><code class="language-r">temp2 &lt;- group_by(data_clean, album_release_date, album_name)
+
+loudness_data &lt;- summarise(temp2, mean_loudness = mean(loudness, na.rm = T))
+
+ggplot(loudness_data, aes(x = album_release_date, y = mean_loudness)) + geom_line()
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-21-1.png" alt="plot of chunk unnamed-chunk-21" /></p>
+
+<p>Que tal colocarmos uns pontos para ficar mais fácil de ver as mudanças?</p>
+
+<pre><code class="language-r">ggplot(loudness_data, aes(x = album_release_date, y = mean_loudness)) + geom_line(size = 2) + geom_point(aes(color = album_name),shape = 18, size = 5)
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-22-1.png" alt="plot of chunk unnamed-chunk-22" /></p>
+
+<h3 id="geom-bar">geom_bar()</h3>
+
+<p>Nós vimos como utilizar o <code>geom_col</code>, porém o <code>geom_bar</code> também pode resolver nossos problemas, pois com ele basta selecionarmos a variável que queremos que ele faz a contagem ou proporção. Vamos verificar a quantidade de músicas por album!</p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = album_name)) + geom_bar()
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23" /></p>
+
+<p>E se quisermos saber qual é o tom (key) que mais aparece em cada album?</p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = album_name, fill = key)) + geom_bar(position = &quot;fill&quot;)
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-24-1.png" alt="plot of chunk unnamed-chunk-24" /></p>
+
+<p>Consguem ver alguma coisa? Eu não haha Vamos ver como podemos mudar as cores do gráfico?</p>
+
+<p>Dica 1: Se você tem dúvida de qual cor pode combinar melhor com outra, tem um <a href="https://coolors.co/app">site</a> bem bacana que pode te ajudar nisso.</p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = album_name, fill = key)) + geom_bar(position = &quot;fill&quot;) + scale_fill_manual(values = c(&quot;#ff1053&quot;, &quot;#6c6ea0&quot;, &quot;#66c7f4&quot;, &quot;#3a606e&quot;, &quot;#7b4b94&quot;, &quot;#8a1c7c&quot;, &quot;#5bc0eb&quot;, &quot;#fde74c&quot;, &quot;#320d6d&quot;, &quot;#f3c969&quot;, &quot;#f55d3e&quot;, &quot;#878e88&quot;))
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-25-1.png" alt="plot of chunk unnamed-chunk-25" /></p>
+
+<p>Neste caso utilizamos o <code>scale_fill_manual</code> pois queriamos preencher as cores de acordo com o que colocamos no paramêtro <code>fill</code>. Se tivessemos escolhido o <code>color</code> teriamos que utilizar <code>scale_color_manual</code>.</p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = album_name, color = key)) + geom_bar(position = &quot;fill&quot;) + scale_color_manual(values = c(&quot;#ff1053&quot;, &quot;#6c6ea0&quot;, &quot;#66c7f4&quot;, &quot;#3a606e&quot;, &quot;#7b4b94&quot;, &quot;#8a1c7c&quot;, &quot;#5bc0eb&quot;, &quot;#fde74c&quot;, &quot;#320d6d&quot;, &quot;#f3c969&quot;, &quot;#f55d3e&quot;, &quot;#878e88&quot;))
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-26-1.png" alt="plot of chunk unnamed-chunk-26" /></p>
+
+<p>O <code>ggplot2</code> também possibilita a utilização de outros sistemas de coordenadas, como por exemplo:</p>
+
+<ul>
+<li><code>coord_flip</code></li>
+</ul>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = album_name, fill = key)) + geom_bar(position = &quot;fill&quot;) + scale_fill_manual(values = c(&quot;#ff1053&quot;, &quot;#6c6ea0&quot;, &quot;#66c7f4&quot;, &quot;#3a606e&quot;, &quot;#7b4b94&quot;, &quot;#8a1c7c&quot;, &quot;#5bc0eb&quot;, &quot;#fde74c&quot;, &quot;#320d6d&quot;, &quot;#f3c969&quot;, &quot;#f55d3e&quot;, &quot;#878e88&quot;)) + coord_flip()
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-27-1.png" alt="plot of chunk unnamed-chunk-27" /></p>
+
+<ul>
+<li><code>coord_polar</code></li>
+</ul>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = album_name, fill = key)) + geom_bar(position = &quot;fill&quot;) + scale_fill_manual(values = c(&quot;#ff1053&quot;, &quot;#6c6ea0&quot;, &quot;#66c7f4&quot;, &quot;#3a606e&quot;, &quot;#7b4b94&quot;, &quot;#8a1c7c&quot;, &quot;#5bc0eb&quot;, &quot;#fde74c&quot;, &quot;#320d6d&quot;, &quot;#f3c969&quot;, &quot;#f55d3e&quot;, &quot;#878e88&quot;)) + coord_polar(theta = 'y')
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-28-1.png" alt="plot of chunk unnamed-chunk-28" /></p>
+
+<p>Dica: Tome cuidado com o <code>coord_polar</code>! Ás vezes, para não dizer sempre, eles podem dificultar a visualização dos dados, como vemos no gráfico acima.</p>
+
+<p>Antes de vermos gráficos interativos, um dos tópicos mais importantes é o título do gráfico, bem como o nome dos eixos e etc. Para fazer isso basta colocarmos uma função chamada de <code>labs()</code>.</p>
+
+<pre><code class="language-r">ggplot(data_clean, aes(x = duration_ms, y = track_popularity, color = album_name)) + 
+  geom_point(size = 3, alpha = 1/1.5) + 
+  scale_color_manual(values = c(&quot;#ff1053&quot;, 
+                                &quot;#6c6ea0&quot;, 
+                                &quot;#66c7f4&quot;, 
+                                &quot;#3a606e&quot;, 
+                                &quot;#7b4b94&quot;, 
+                                &quot;#8a1c7c&quot;, 
+                                &quot;#5bc0eb&quot;, 
+                                &quot;#fde74c&quot;, 
+                                &quot;#320d6d&quot;, 
+                                &quot;#f3c969&quot;, 
+                                &quot;#f55d3e&quot;)) +
+  labs(title = &quot;As músicas mais populares são as de maior duração?&quot;, 
+       subtitle = &quot;Banda: The Beatles&quot;,
+       x = &quot;Duração (milissegundos)&quot;, 
+       y = &quot;Popularidade da música&quot;, 
+       caption = &quot;Fonte: Spotify&quot;)
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-29-1.png" alt="plot of chunk unnamed-chunk-29" /></p>
+
+<p>Não parece muito difícil fazer gráfico no R, não? O <code>ggplot2</code> é tão importante e intuitivo que até foi portado para outras linguagem de programação, como por exemplo, o Python.</p>
+
+<h2 id="gráficos-interativos">Gráficos Interativos</h2>
+
+<p>Os gráficos interativos no R são construídos com um pacote que se comunica perfeitamente com o <code>ggplot2</code>, o <code>plotly</code>. Além de ser um pacote muito utilizado não só no R, como também, em Python e Javascript, o plotly é uma empresa que fornece serviços de comunicação com dados e como forma de promover seus produtos, eles liberam alguns dos seus códigos para serem utilizados por qualquer pessoa.</p>
+
+<p>Para instalar o pacote, nós utilizamos o <code>install.packages(&quot;plotly&quot;)</code> e depois <code>library(plotly)</code> para habilitar as funções disponíveis.</p>
+
+<pre><code class="language-r">#install.packages(&quot;plotly&quot;)
+library(plotly)
+</code></pre>
+
+<pre><code>## 
+## Attaching package: 'plotly'
+</code></pre>
+
+<pre><code>## The following object is masked from 'package:ggplot2':
+## 
+##     last_plot
+</code></pre>
+
+<pre><code>## The following object is masked from 'package:stats':
+## 
+##     filter
+</code></pre>
+
+<pre><code>## The following object is masked from 'package:graphics':
+## 
+##     layout
+</code></pre>
+
+<pre><code class="language-r">p1 &lt;- ggplot(data_clean, aes(x = duration_ms, y = track_popularity, color = album_name)) + 
+  geom_point(size = 3, alpha = 1/1.5) + 
+  scale_color_manual(values = c(&quot;#ff1053&quot;, 
+                                &quot;#6c6ea0&quot;, 
+                                &quot;#66c7f4&quot;, 
+                                &quot;#3a606e&quot;, 
+                                &quot;#7b4b94&quot;, 
+                                &quot;#8a1c7c&quot;, 
+                                &quot;#5bc0eb&quot;, 
+                                &quot;#fde74c&quot;, 
+                                &quot;#320d6d&quot;, 
+                                &quot;#f3c969&quot;, 
+                                &quot;#f55d3e&quot;)) +
+  labs(title = &quot;As músicas mais populares são as de maior duração?&quot;, 
+       subtitle = &quot;Banda: The Beatles&quot;,
+       x = &quot;Duração (milissegundos)&quot;, 
+       y = &quot;Popularidade da música&quot;, 
+       caption = &quot;Fonte: Spotify&quot;)
+
+ggplotly(p1)
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-31-1.png" alt="plot of chunk unnamed-chunk-31" /></p>
+
+<pre><code class="language-r">p2 &lt;- ggplot(data_clean, aes(x = duration_ms, y = track_popularity, color = album_name)) + 
+  geom_point(size = 3, alpha = 1/1.5, aes(frame = year, ids = track_name)) +
+  labs(title = &quot;As músicas mais populares são as de maior duração?&quot;, 
+       subtitle = &quot;Banda: The Beatles&quot;,
+       x = &quot;Duração (milissegundos)&quot;, 
+       y = &quot;Popularidade da música&quot;, 
+       caption = &quot;Fonte: Spotify&quot;) +
+  theme(legend.position = &quot;none&quot;)
+</code></pre>
+
+<pre><code>## Warning: Ignoring unknown aesthetics: frame, ids
+</code></pre>
+
+<pre><code class="language-r">ggplotly(p2)
+</code></pre>
+
+<pre><code>## Warning in p$x$data[firstFrame] &lt;- p$x$frames[[1]]$data: number of items to
+## replace is not a multiple of replacement length
+</code></pre>
+
+<p><img src="figures//unnamed-chunk-32-1.png" alt="plot of chunk unnamed-chunk-32" /></p>
+
+<h1 id="exercícios">Exercícios</h1>
+
+<ol>
+<li><p>Construa um gráfico com uma variável quantitativa (eixo y) e qualitativa (eixo x).</p></li>
+
+<li><p>Construa um gráfico com uma variável quantitativa.</p></li>
+</ol>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2018 Released under the MIT license &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="../manipular/" title="Transformando Dados">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Transformando Dados
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '\/';
+      var repo_id  = 'p4hUSP\/workshops_2018.2';
+    
+    </script>
+
+    <script src="../javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){
+          i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||
+          []).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;
+          m.parentNode.insertBefore(a,m)
+        })(window, document,
+          'script', '//www.google-analytics.com/analytics.js', 'ga');
+         
+        ga('create', 'UA-125947516-1', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+         
+        var buttons = document.querySelectorAll('a');
+        Array.prototype.map.call(buttons, function(item) {
+          if (item.host != document.location.host) {
+            item.addEventListener('click', function() {
+              var action = item.getAttribute('data-action') || 'follow';
+              ga('send', 'event', 'outbound', action, item.href);
+            });
+          }
+        });
+         
+        var query = document.querySelector('.query');
+        query.addEventListener('blur', function() {
+          if (this.value) {
+            var path = document.location.pathname;
+            ga('send', 'pageview', path + '?q=' + this.value);
+          }
+        });
+      </script>
+    
+
+    <script src="../javascripts/prism.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

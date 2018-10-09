@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Visualizars on Workshop P4H</title>
+    <link>/visualizar/</link>
+    <description>Recent content in Visualizars on Workshop P4H</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <copyright>Released under the MIT license</copyright>
+    
+	<atom:link href="/visualizar/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>visualizacao de Dados</title>
+      <link>/visualizar/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/visualizar/</guid>
+      <description>Introdução As visualizações gráficas são muito importantes para transmitir informações. Podemos dizer até que ela é fundamental para análise de dados, nos ajudando a responder questões, tomar decisões, contar histórias e até mesmo inspirar. Veremos como fazer criar essas visualizações utilizando dados do Spotify sobre a melhor banda do mundo:
+knitr::include_graphics(&amp;quot;https://github.com/p4hUSP/workshops_2018.2/blob/master/imgs/w3_01.jpeg&amp;quot;)  Isso mesmo, os Beatles! Você pode até se perguntar se tem algum motivo especial para ser essa banda, não é mesmo?</description>
+    </item>
+    
+  </channel>
+</rss>
