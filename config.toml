@@ -56,6 +56,12 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 	name   = "Manipular"
 	url    = "manipular/"
 	weight = 10
+	
+[[menu.main]]
+	name   = "Visualizar"
+	url    = "visualizar/"
+	weight = 10
+
 
 [blackfriday]
 	smartypants	= true
