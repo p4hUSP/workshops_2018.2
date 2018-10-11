@@ -33,7 +33,7 @@ glimpse(data)
 
 Perceba que cada observação da nossa base de dados é uma música e que cada uma delas possuem métricas, como por exemplo, "danceability", "instrumentalness" e entre outros. Para sabermos o que significa cada uma dessas informações podemos acessar este [link](https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/).
 
-Ao longo da carreira, os Beatles lançaram 13 albuns de estúdio, vamos verificar quantas músicas cada album tem.
+Ao longo da carreira, os Beatles lançaram 13 albuns de estúdio, vamos verificar quantas músicas cada álbum tem.
 
 ```{r}
 count(data, album_name)
@@ -52,7 +52,7 @@ album_musicas <- count(data_clean, album_name)
 album_musicas
 ```
 
-Qual é o album com uma maior quantidade de músicas? E o segundo? O terceiro? 
+Qual é o álbum com uma maior quantidade de músicas? E o segundo? O terceiro? 
 
 Qual é a média de "danceability" para cada album?
 
